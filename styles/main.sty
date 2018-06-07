@@ -1,0 +1,54 @@
+
+
+	\RequirePackage{ifpdf} 	% для раздельной компиляции pdf и dvi 
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% глобальные переменные --- удобно, не надо ментять везде
+%%%
+	\newcommand{\globalEncoding}{utf8}		% кодировка	
+	
+	\newcommand{\globalStylesDir}{styles}	% месторасположение стилей
+	
+%	еще раз
+	\newcommand{\STYLES}{\globalStylesDir}	
+	\newcommand{\IMG}{img}
+	\newcommand{\SRC}{src}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% жизненноважная директива
+%%%
+	
+	\usepackage[\globalEncoding]{inputenc}							% кодировка, тут очень аккуратно
+		%% вариант:
+		%	\usepackage[utf8]{inputenc}
+		%	\usepackage{ucs}
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% опишем <<наши>> модули, раздельное описание --- легче редактировать
+%%%
+	
+	\usepackage{\globalStylesDir/myFonts}		% наши шрифты и локализация
+	\usepackage{\globalStylesDir/myMath}		% модуль нашей математики 
+	\usepackage{\globalStylesDir/myCode}		% модуль наших листингов
+	\usepackage{\globalStylesDir/myTables} 		% модуль наших таблиц
+	
+	\usepackage{\globalStylesDir/myHyperref}		% модуль нашиих гиперссылок
+		
+	
+
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% настройка параметров документа
+%%%
+	\oddsidemargin=-0.4mm
+	\textwidth=160mm
+	\topmargin=4.6mm
+	\textheight=210mm
+	\parindent=0pt
+	\parskip=3pt
+
+

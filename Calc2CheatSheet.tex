@@ -1,0 +1,684 @@
+\documentclass[unicode,10pt, landscape]{article}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage[russian]{babel}
+\usepackage[utf8]{inputenc}
+
+% To make this come out properly in landscape mode, do one of the following
+% 1.
+%  pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+
+% If you're reading this, be prepared for confusion.  Making this was
+% a learning experience for me, and it shows.  Much of the placement
+% was hacked in; if you make it better, let me know...
+
+
+% 2008-04
+% Changed page margin code to use the geometry package. Also added code for
+% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
+% for the suggestions.
+
+% 2006-08
+% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
+
+
+% To Do:
+% \listoffigures \listoftables
+% \setcounter{secnumdepth}{0}
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\newenvironment{Proof} % имя окружения
+{\par\noindent{\bf Док-во:}} % команды для \begin
+{\hfill$\scriptstyle\blacksquare$}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{2}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+\newtheorem{Def}{Опр.}
+\newtheorem{Prop}{Св-во.}
+\newtheorem{Th}{Теор.}
+
+\begin{center}
+     \Large{\textbf{Шпоры по математическому анализу.}} \\
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{1. Разбиения множеств в $ \mathbb{R}^n $ (определение, свойства)}
+\begin{Def}
+
+Разбиением $\bf{\tau}$ мн-ва $\mathcal{S} \subseteq \mathbb{R}^n$ назыв. семейство мн-в $\mathcal{S}_\alpha$, таких что:
+\begin{itemize}
+
+\item $\forall \alpha, \beta : \mu(\mathcal{S}_\alpha \cap \mathcal{S}_\beta) = 0$, где $\mu$ - мера Жордана.
+
+\item $\bigcup_{\tau} \mathcal{S}_\alpha = \mathcal{S}$
+
+Обознач. : $\{\tau_k\}, \tau_k = \{ \mathcal{S}_{k, 1}, \mathcal{S}_{k, 2}, \ldots, \mathcal{S}_{k, j_k} \}$
+
+\end{itemize}
+
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{2. Измеримые множества в $\mathbb{R}^n$ (определение, критерий)}
+Определение
+\begin{Def}
+Множество $\mathcal{S} \subseteq \mathbb{R}^n$ называют измеримым (по Жордану), если $\lim_{k \to \infty} \mu(\mathcal{S}_k) < +\infty$, где $\mu$ - мера Жордана. При этом полагают, что $\mu(\mathcal{S}) = \lim_{k \to \infty}\mu(\mathcal{S}_k)$.
+\end{Def}
+Критерий
+\begin{Th}
+Мн-во $\mathcal{S} \subset \mathbb{R}^n$ измеримо $\Leftrightarrow$ $\mathcal{S}$ - огранич. и $\exists \mu(\delta\mathcal{S}) = 0$. 
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{3. Интегральные суммы и суммы Дарбу в $\mathbb{R}^n$}
+\begin{Def}
+Пусть $b: \mathcal{S} \subseteq \mathbb{R}^n \to \mathbb{R}$, тогда величина $\mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k}) = \sum_{j = 1}^{j_k} b(\xi_{k, j})\mu(\mathcal{S}_{k,j})$ называется интегральной суммой(Римана) для функции $b$, соотв. разбиению $\tau_k$.
+\end{Def}
+\begin{Def}
+Обозначим $\tau = \{\mathcal{S}_k\}_{k=1}^\infty$; $\mathcal{M}_k = sup_{x \in \mathcal{S}_k} b(x)$; $m_k = inf_{x \in \mathcal{S}_k} b(x)$; Тогда величины: $\overline{\overline{\mathbb{S}}}(\tau) = \sum_{k = 1}^n \mathcal{M}_k \mu(\mathcal{S}_k)$ и $\underline{\underline{\mathbb{S}}}(\tau) = \sum_{k=1}^n m_k \mu(\mathcal{S}_k)$ называют соответственно верхней  нижней суммой Дарбу для ф-ии $b(x)$, соотв. разбиению $\tau$.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{4. Кратный интеграл Римана(определение, свойства)}
+\begin{Def}
+Если $\exists \mathcal{I} = \lim_{k \to \infty} \mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k})$, не зависящий: 
+\begin{itemize}
+\item От выбора $\{\tau_k\}$ c $|\tau_k| \to 0$
+\item От выбора $\xi_{k, j}$
+\end{itemize}
+То ф-ю $b$ называютинтегрируемой по Риману на мн-ве $\mathcal{S}$, а величину $\mathcal{I}$ назыв. интегралом Римана от ф-ии $b$ по мн-ву $\mathcal{S}$.
+Обозн. : $\int_{\mathcal{S}}b(x)dx$ или $\int\int\ldots\int b(x_1, \ldots, x_n) dx_1\ldots dx_n$.
+\end{Def}
+
+Свойства кратного интеграла Римана:
+\begin{itemize}
+\item 1) Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо. Тогда $\int_{\mathcal{S}}dx = \mu(\mathcal{S})$.
+\item 2) Линейность. $\int_{\mathcal{S}}(\alpha b(x) + \beta g(x))dx = \alpha\int_\mathcal{S}b(x)dx + \beta\int_\mathcal{S}g(x)dx$; $\mathcal{S} \subset \mathbb{R}^n$; $b,g: \mathcal{S} \to \mathbb{R}$; $\alpha, \beta \in \mathbb{R}$.
+\item 3) $\mathcal{S} \subset \mathbb{R}^n$ - измеримо. $b \in \mathcal{R}(\mathcal{S})$ - ограничено, где $\mathcal{R}(\mathcal{S})$ - мн-во всех функций инегрируемых по Риману на $\mathcal{S}$. Тогда $b \in \mathcal{R}(\mathcal{S}')$.
+\item 4) Аддитивность по мн-ву. Пусть $\mathcal{S}_1, \mathcal{S}_2 \subset \mathbb{R}^n$ - измеримы.; $\mu(\mathcal{S}_1 \cap \mathcal{S}_2) = 0$; $b \in \mathcal{R}(\mathcal{S}_1) \cap \mathcal{R}(\mathcal{S}_2)$ - ограничено. Тогда $b \in \mathcal{R}(\mathcal{S}_1 \cap \mathcal{S}_2)$ и $\int_{\mathcal{S}_1 \cap \mathcal{S}_2}b(x)dx = \int_{\mathcal{S}_1}b(x)dx + \int_{\mathcal{S}_2}b(x)dx$.
+\item 5) Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b, g \in \mathcal{R}(\mathcal{S})$; Если $inf_{x \in \mathcal{S}} |g(x)| > 0$, то $\frac{b}{g} \in \mathcal{R}(\mathcal{S})$.
+\item 6) Монотонность. Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b, g \in \mathcal{R}(\mathcal{S})$; $\forall x \in \mathcal{S}  b(x) \geq g(x)$; Тогда $\int_\mathcal{S}b(x)dx \geq \int_\mathcal{S}g(x)dx$.
+\item 7) Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b \in \mathcal{R}(\mathcal{S})$ - огр.; Тогда $|b| \in \mathcal{R}(\mathcal{S})$, причем $|\int_\mathcal{S}b(x)dx| = \int_\mathcal{S}|b(x)|dx$.
+\item 8)  Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b \in \mathcal{R}(\mathcal{S})$ - огр.; $b \in \mathcal{R}(\mathcal{S})$ - огр.; $\forall x \in \mathcal{S}  b(x) \geq 0$; $\exists x_0 \in \mathcal{S}: b(x_0) > 0$ и $b$ непрерывно в $x_0$. Тогда $\int_\mathcal{S}b(x)dx > 0$.
+\item 9) Полная аддитивность.  Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $\{\mathcal{S}_k\}_{n\in\mathbb{N}} : \forall n \in \mathbb{N} \mathcal{S}_n \subset \mathcal{S}_{n+1}$; $\bigcup_{n=1}^\infty \mathcal{S}_n = \mathcal{S}$; $b \in \mathcal{R}(\mathcal{S})$; Тогда $\lim_{n \to \infty} \int_{\mathcal{S}_n} b(x)dx = \int_{\mathcal{S}} b(x)dx$.
+\item 10) Теорема о среднем.  Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримo; $b$ - непр. и огр. в $\mathcal{S}$; Тогда $\exists x_0 \in \mathcal{S}: \int_\mathcal{S} b(x_0)dx = b(x_0)\mu(\mathcal{S}) = \int_{\mathcal{S}} b(x)dx$.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{5. Критерии интегрируемости ф-й в $\mathbb{R}^n$}
+Критерий Дарбу.
+\begin{Th}
+Если $\exists \mathcal{I} = inf_{\tau}\overline{\overline{\mathbb{S}}}(\tau) = sup_{\tau}\underline{\underline{\mathbb{S}}}(\tau) < \infty$ по всем разбиениям $\tau$ измеримого мн-ва $\mathcal{S}$ для ф-ии $b: \mathcal{S} \to \mathbb{R}$ $\Leftrightarrow$ $b \in \mathcal{R}(\mathcal{S})$ и $\int_\mathcal{S}b(x)dx = \mathcal{I}$.
+\end{Th}
+Критерий Лебега.
+\begin{Th}
+Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b \in \mathcal{R}(\mathcal{S})$ - огр.; $\exists \mathcal{S}_1, \mathcal{S}_2 \subset \mathcal{S}: \mathcal{S}_1 \cap \mathcal{S}_2 = \phi; \mathcal{S}_1 \cup \mathcal{S}_2 = \mathcal{S}$; $b$ - непрерывно на $\mathcal{S}_1, \mu(\mathcal{S}_2) = 0$. Тогда и только тогда $b \in \mathcal{R}(\mathcal{S})$.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{6. Сведение кратного интеграла к повторному}
+\begin{Th}
+Пусть $\mathcal{S} - $ стандартная область относительно $O_y$; $b: \mathcal{S} \to \mathbb{R}$ - непр; Тогда $(1) \int\int_\mathcal{S}b(x,y)dxdy =  \int_a^b dx (2)\int_{\phi(x)}^{\psi(x)}b(x, y)dy$, где (1) - существует по крит. Лебега, а (2) - $F(x)$ - непр.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{7. Замена переменных в кратном интеграле (2 теоремы)}
+
+Теорема 1.
+\begin{Th}
+Пусть $F: D \to D^*$: 
+\begin{itemize}
+\item Взаимно однозначно в $D$.
+\item Непр. дифф. в $D$.
+\item $\mathcal{J}_F (x_1, \ldots, x_n) \neq 0$ в $D$.
+\end{itemize}
+Пусть $b: D^* \to \mathbb{R}$ - непр; $X \subset \overline{X} \subset D$ - измеримы. Тогда (1): $\int_{\overline{F(x)}}b(y)dy = \int_{\overline{X}}b(F(x)|\mathcal{J}_F (x)| dx$.
+$\int_{\phi(a)}^{\phi(b)}b(y)dy = \{ y = \phi(x) \} = \int_a^b b(\phi(x)) \phi'(x) dx$
+\end{Th}
+
+Теорема 2.(следует из 1)
+\begin{Th}
+Пусть $F: D \to D^*$: 
+\begin{itemize}
+\item Взаимно однозначно в $D$.
+\item Непр. дифф. в $D$.
+\item $\mathcal{J}_F (x_1, \ldots, x_n) \neq 0$ в $D$.
+\item F и $\mathcal{J}_F$ непр. продолжены на $\overline{X}$.
+\end{itemize}
+Пусть $b: F(x) \to \mathbb{R}$ непр на $x$ и непр. прордолжена на $\overline{F(x)}$. Тогда имеет место (1).
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{8. Несобственные кратные интегралы (определение, критерий сходимости, признак сравнения)}
+\begin{Def}
+Пусть $G$ - область в $\mathbb{R}^n$; $b: G \to \mathbb{R}$; b - интегрируема на $\mathcal{X}$; $\forall \mathcal{X} \subset G$ - комп.; Тогда $\int_G b(x)dx$ - несобственный кратный интеграл.
+\end{Def}
+Признак сходимости.
+\begin{Def}
+$\int_G b(x)dx$ - сходится, если $\exists \mathcal{I} = \lim_{m \to \infty} \int_{G_m}b(x)dx$, $\forall\{ G_m \}$ - исчерпывающее для $G$, где $\mathcal{I} - $ const; Обозн.: $\mathcal{I} = \int_G bdx$.
+\end{Def}
+Признак сравнения.
+\begin{Th}
+Пусть $b, g \geq 0$ - удовл. опред. несобств. инт.; $b \geq g$; $\exists \int_G bdx$ - сходится. Тогда $\int_G gdx$ - тоже сходится.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{9. Криволинейный интеграл 1-го рода (определение, свойства)}
+\begin{Def}
+Пусть - $\mathcal{L} = \{M(s): 0 \leq s \leq S\}$, где $M(s) = (x(s), y(s), z(s))$ - уравнение линии.; $b(x, y, z) $ - ф-я. Тогда $\int_\mathcal{L} bds := \int_0^S b(x(s), y(s), z(s))ds$ - криволинейный интеграл 1-го рода, а $\mathcal{L}$ - путь интегрирования. 
+\end{Def}
+Св-ва:
+\begin{itemize}
+\item Если $b$ - непр. на $[0, S]$, т.е на $\mathcal{L}$, тогда $\exists \int_\mathcal{L}bds$;
+\item $\int_\mathcal{L}bds$ не зависит от направления обхода.
+\item Пусть $\phi, \psi, \xi$ - непр. дифф на $[a, b]$; $\exists [\phi'(t)]^2 + [\psi'(t)]^2 + [\xi'(t)]^2 \neq 0 \forall t \in [a, b]$; Тогда $\int_\mathcal{L}bds = \int_a^b b(\phi(t), \psi(t), \xi(t))\sqrt{[\phi'(t)]^2 + [\psi'(t)]^2 + [\xi'(t)]^2}dt$
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{10. Криволинейный интеграл 2-го рода (определение, свойства)}
+\begin{Def}
+Пусть $L = AB$ - гладкая ориентированная кривая; $\overline{r}(s) = (x(s), y(s), z(s)), 0 \leq s \leq S$ - её векторное представление, $A = r(0), B = r(S)$; $\overline{a}(x,y,z) = (P(x, y, z), Q(x, y, z), R(x, y, z))$ - вектор функция. Тогда $\int_{AB}\overline{a}d\overline{r} = \int_{AB}\overline{a}\overline{r}ds$ - криволинейный интеграл 2-го рода.
+\end{Def}
+Св-ва:
+\begin{itemize}
+\item Если ф-ии  $P, Q, R$ - непрерывны, то интеграл существует.
+\item При изменении ориентации кривой интеграл меняет знак.
+\item Пусть $x(t), y(t), z(t), a \leq t \leq b$ - векторное представление гладкой кривой L. Тогда $\int_L\overline{a}d\overline{r} = \int_a^b\overline{a}   \overline{r}dt$.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{11. Условие независимости криволинейного интеграла от пути интегрирования}
+\begin{Th}
+Пусть $P(x,y), Q(x,y) : D \to \mathbb{R}$ - непрерывны, и $M_0M$ - гладкая дуга в $D, D \subset \mathbb{R}^2$. Тогда криволинейный интеграл $\oint_{M_0M} P(x,y)dx + Q(x,y)dy$ не зависит от пути интегрирования тогда и только тогда, когда $P(x, y)dx + Q(x,y)dy$ есть полный дифференциал функции $U(x, y)$ а равно $\frac{\partial Q}{\partial x} = \frac{\partial P}{\partial y}$.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{12. Формула Грина и её следствие}
+\begin{Th}
+Пусть $G$ - элемент. область; $P, Q : G \to \mathbb{R}$; $P, Q, \frac{\partial P}{\partial x}, \frac{\partial Q}{\partial y}$ - непрерывны в $G$. Тогда для крив. инт. 2-го рода вида $\oint Pdx + Qdy$ имеет место формула Грина: $\oint_G Pdx+Qdy = \int\int_G( \frac{\partial P}{\partial x} - \frac{\partial Q}{\partial y})dxdy$.
+\end{Th}
+Следствие: Пусть $G$ - обл. огр. простым замкн. контуром, кот. можно разбить на конечн. число элем. областей. $P, Q: G \to \mathbb{R}; P, Q, \frac{\partial P}{\partial x}, \frac{\partial Q}{\partial y}$ - непрерывны в $G$. Тогда имеет место формула Грина.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{13. Поверхности и их ориентация. Площадь поверхности}
+Поверхность.
+\begin{Def}
+Пусть $G \subset \mathbb{R}^2_{u,v}$. Тогда поверхностью $\mathbb{S}$ называют отображение $\overline{r}: G \to \mathbb{R}^3_{x, y, z}$. Обозн. $\overline{r}(u, v) = \{x(u, v), y(u, v), z(u, v)\}$.
+\end{Def}
+Ориентация.
+\begin{Def}
+Если на поверхн. $\mathbb{S}$ можно задать непрерывное поле нормали $\overline{\delta}(u, v)$, то такую поверхность называют ориентированной, а само такое поле - ориентацией.
+\end{Def}
+Площадь поверхности $\mathbb{S}$ можно вычислить по формуле Грина: $S(\mathbb{S}) = \frac{1}{2}\int_{\delta \mathbb{S}}xdy-ydx$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{14. Поверхностный интеграл 1-го рода}
+\begin{Def}
+Поверхностным интегралом первого рода от ф-ии $b$ по поверхности $\mathbb{S}$ называется интеграл вида: $\int\int_{(\mathbb{S})}bds = \int\int_D b(x(u,v), y(u,v), z(u,v))*\sqrt{g_{11}(u,v)g_{22}(u,v) - g_{12}^2}dvdu$, где $g_{11}(u,v) = |\overline{r}_u|^2, g_{22}(u,v) = |\overline{r}_v|^2, g_{12} = |\overline{r}_u * \overline{r}_v|$.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{15. Поверхностный интеграл 2-го рода}
+\begin{Def}
+Поверхностным интегралом второго рода называется интеграл вида: $\int\int_{\mathbb{S}+}\overline{a\delta}ds = \int\int_{\mathbb{S}+}(Pcos\alpha + Qcos\beta + Rcos\gamma)ds = \int\int_{\mathbb{S}+}Pdydz+Qdxdz+Rdxdy$.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{16. Формула Гаусса-Остроградского}
+\begin{Th}
+Пусть $\mathcal{S} \subset \mathbb{R}^3$ - область, элементарная относительно $Ox, Oy, Oz$; $\mathbb{S} = \delta\mathcal{S}$ - замкнутая кусочно-гладкая поверхность;$\mathcal{S} = (x,y) \in D, \phi(x, y) \leq z \leq \psi(x, y)$, где $\phi, \psi: D \to \mathbb{R}$ - непрерывн. ф-ии и $\forall (x,y) \in D: \phi(x, y) \leq \psi(x, y)$ - элем. обл. отн. оси $Oz$. Тогда $\int\int_{\mathbb{S}+}(Pcos\alpha+Qcos\beta+Rcos\gamma)dS = \int\int\int_\mathcal{S}div\overline{a}dxdydz$, где $div\overline{a} = \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}$.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{17. Формула Стокса}
+\begin{Th}
+Пусть $\overline{a} \in C^1(s), b \in C^2(\overline{G})$. Тогда имеет место формула Стокса $\oint_{T+}\overline{a}ds = \int\int_{S}\overline{\delta}rot\overline{a}ds$.
+\end{Th}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{18. Градиент, дивергенция, ротор}
+Градиент
+\begin{Def}
+$\nabla b(x,y,z) = $ grad $b(x, y, z) = $ $\{\frac{\partial b}{\partial x}, \frac{\partial b}{\partial y}, \frac{\partial b}{\partial z} \} = \frac{\partial b}{\partial x}i + \frac{\partial b}{\partial y}j + \frac{\partial b}{\partial y}k$ - градиент скалярного поля $b$.
+\end{Def}
+
+Дивергенция
+\begin{Def}
+div $\overline{a}(x, y, z) = \nabla \overline{a}(x, y, z) = \frac{\partial a}{\partial x} + \frac{\partial a}{\partial y} + \frac{\partial a}{\partial y}$ - дивергенция скалярного поля $\overline{a}$.
+\end{Def}
+
+Ротор
+\begin{Def}
+Пусть $\overline{a}(x, y, z) = P(x, y, z) + Q(x, y, z) + R(x, y, z)$, тогда rot $\overline{a}(x, y, z) = \nabla \times \overline{a}(x, y, z) = 
+\begin{vmatrix}
+i& j& k\\
+\frac{\partial}{\partial x}& \frac{\partial}{\partial y}& \frac{\partial}{\partial z}\\
+P& Q& R
+\end{vmatrix}
+ = (\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z})i - (\frac{\partial R}{\partial x} - \frac{\partial P}{\partial z})j + (\frac{\partial Q}{\partial x} + \frac{\partial P}{\partial y})k$ - ротор (вихрь) векторного поля $\overline{a}$
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{19.Потенциальные и Соленоидальные поля (определения, условия)}
+
+Соленоидальные:
+\begin{Def}
+Вект. поле $a: G \to \mathbb{R}^3$ наз. соленоидальным, если поток этого поля через любую кусочно-гладкую пов-сть. $S$, ограничивающую область $G' \subset G$ равен 0.
+\end{Def}
+Условие соленоидальности
+\begin{Th}
+Непр. дифф. поле $a : G \to \mathbb{R}^3$ соленоидально тогда и только тогда, когда $\forall M \in G : $ div $a(M) = 0$.
+\begin{Proof}
+Необходимость: пусть поле $a$ соленоидально. Тогда по Th. о геом. смысле дивергенц.: $\forall M \in G $ div $a(M) = \lim_{n\to\infty}\frac{\iint_{S_n = G_n} ad\overline{s}}{\mu(G_n)} = 0$, где $\iint_{S_n = G_n} ad\overline{s} = 0$ по опр. соленоидальности.
+Доказательство достаточности следует из ф-лы Гаусса-Остроградского.
+\end{Proof}
+\end{Th}
+
+Потенциальные:
+\begin{Def}
+Поле $\overline{a}(x, y, z) = (P(x, y, z), Q(x, y, z), R(x, y, z)), \overline{a} : D \in \mathbb{R}^3 \to \mathbb{R}^3$ назыв. потенциальным если $\exists U: D \to \mathbb{R}$ - потенциальная ф-я, такая что $\nabla U(x, y, z) = \overline{a}(x, y, z)$, т.е $\frac{\partial U}{\partial x} = P(x, y, z)$ и т.д
+\end{Def}
+1-й критерий потенциальности
+\begin{Th}
+Неп. дифф. вект. поле $\overline{a}: D \to \mathbb{R}^3$ явл. потенциальным если криволинейный инт. второго рода $\int_{\mathcal{L}}\overline{a}d\overline{s}$ - не зависит от напр. пути $\mathcal{L} \in D$, а зависит только от его начальнойи конечной точки. При этом $\int_{\mathcal{L}}\overline{a}d\overline{s} = U(M) - U(M_0)$.
+\end{Th}
+2-й критерий потенциальности
+\begin{Th}
+Неп. дифф. вект. поле $\overline{a}: D \to \mathbb{R}^3$, где $D$ - односвязно, явл. потенциальным если $\forall M \in D: $ rot $\overline{a}(M) = 0$.
+\begin{Proof}
+Необходимость: Расписать ротор от поля $\overline{a}$ как градиента потенциальной ф-ии, т.е ротор от вектор-функции, составленной из записей частных производных потенциальной ф-ии $\overline{a}(x, y, z) = \nabla U(x, y, z)$. Далее необходимо показать, что в силу равенства частных проиводных второго порядка, ротор становится равен $0i + 0j + 0k$ т.е нулю.
+Достаточность следует из формулы Стокса.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{20. Числовой ряд, его сумма, сходимость, остаток.}
+Пусть: (1)$\{a_n\}_{n = 1}^\infty$ - числовая последовательность; $S_1 = a_1; S_2 = a_1+a_2; \ldots; S_n = a_1 + \ldots + a_n; (2) \{S_n\}_{n=1}^\infty$. Тогда пара числовых последовательностей (1) и (2) наз. числовым рядом $\sum_{n=1}^\infty a_n$. При том $S_n$ - наз. част. суммой. Если $S = \lim_{n \to \infty}S_n \in \mathbb{R}$ то говорят, что ряд сходится(иначе расходится. $S$ - называют суммой ряда. Ряд вида $\sum_{n = n_0 + 1}^\infty a_n$ называют остатком ряда $\sum_{n=1}^\infty a_n$, $\forall n_0 \in \mathbb{N}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{21. Необходимое условие сходимости числового ряда.}
+\begin{Th}
+Если ряд  $\sum_{n=1}^\infty a_n$ - сходится, то $lim_{n \to \infty} a_n = 0$;
+\begin{Proof}
+$S_n = S_{n-1} + a_n \Rightarrow a_n = S_n - S_{n-1}; \lim_{n \to \infty} a_n = \lim_{n \to \infty}S_n - \lim_{n \to \infty} S_{n-1} = S-S = 0;$
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{22. Расходимость гармонического ряда.}
+\begin{Th}
+Гармонический ряд $\sum_{n=1}^\infty \frac{1}{n}$ - расходится.
+\begin{Proof}
+По критерию коши, для сходимости этого ряда необходимо и достаточно: 
+$\forall \varepsilon >0, \exists N_{\varepsilon },\forall n>N_{\varepsilon },\forall p > 0:\left | \frac{1}{n+1}+\frac{1}{n+2}+\cdots +\frac{1}{n+p} \right |<\varepsilon$. Возьмем $\varepsilon = \frac{1}{2}; p = n$. Тогда: $\left | \frac{1}{n+1}+\frac{1}{n+2}+\cdots +\frac{1}{n+p} \right |=\left | \frac{1}{n+1}+\frac{1}{n+2}+\cdots +\frac{1}{2n} \right |> \left | \frac{1}{2n}+\frac{1}{2n}+\cdots +\frac{1}{2n} \right |=\frac{1}{2}=\varepsilon$. Критерий не выполняется, следовательно ряд расходится.
+\end{Proof}
+\end{Th}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{23. Признаки сходимости числовых рядов}
+Признак сравнения:
+\begin{Th}
+Пусть даны два ряда с неотрицательными членами: $\sum\limits_{n=1}^{\infty} a_{n}=a_{1}+a_{2}+...+a_{n}+...    (A)$; $\sum\limits_{n=1}^{\infty} b_{n}=b_{1}+b_{2}+...+b_{n}+...    (B)$; Если, начиная с некоторого номера $N \in \mathbb{N} : \forall n > N$ вып. неравенство вида: $0\leq a_{n}\leq b_{n}$. Тогда: если сходится (B) то сходится и (A), если расходится (A) то расходится и (B);
+\begin{Proof}
+$S_n^{(A)} \leq S_n^{(B)}$ следует из усл. $0\leq a_{n}\leq b_{n}$. Пусть (B) - сход. Тогда $S_n^{(B)}$ - огранич. а значит и $S_n^{(A)}$ - ограничено. Следовательно ряд (A) - сход. 2-е можно доказать от противного к первому.
+\end{Proof}
+\end{Th}
+
+Предельный признак:
+\begin{Th}
+Пусть даны два ряда с неот. членами: $\sum\limits_{n=1}^{\infty} a_{n}=a_{1}+a_{2}+...+a_{n}+...    (A)$; $\sum\limits_{n=1}^{\infty} b_{n}=b_{1}+b_{2}+...+b_{n}+...    (B)$; Если существует предел: $\lim\limits_{n\rightarrow \infty } \frac{a_{n}}{b_{n}}=K      0<K< +\infty$, тогда ряды (A) и (B) сходятся или расходятся одновременно.
+\begin{Proof}
+Докажем для сходимости в одну сторону: 
+Пусть ряд (В) сходится. Из опр. предела: $\forall \varepsilon >0 \exists N_{\varepsilon }:\forall n>N_{\varepsilon }\left | \frac{a_{n}}{b_{n}}-K \right |<\varepsilon \Leftrightarrow K-\varepsilon <\frac{a_{n}}{b_{n}}<K+\varepsilon$. Из неравенства получим: $a_{n}<b_{n}(K+\varepsilon )$.Ряд $\sum_{n=1}^{\infty} b_{n}(K+\varepsilon )$ сходится, так как это ряд полученный умножением членов ряда (B) на постоянное число $K+\varepsilon$. Тогда по признаку сравнения ряд (A) сходится.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{24. Признак Даламбера}
+\begin{Th}
+Пусть дан ряд с неот. членами:
+$\sum\limits_{n=1}^{\infty} a_{n}=a_{1}+a_{2}+...+a_{n}+...
+a_{n}>0$
+Если начин. с нек. номера $n_{0}\epsilon \mathbb{N} \forall n>n_{0}$ вып. нерав. $\frac{a_{n+1}}{a_{n}}\leq q<1 q\epsilon \mathbb{R}$, то ряд сходится.
+Если $\exists n_{0}\epsilon \mathbb{N}:\forall n>n_{0} \frac{a_{n+1}}{a_{n}}\geq 1$, то ряд расходится.
+\begin{Proof}
+Рассм. нерав. $\frac{a_{n+1}}{a_{n}}\leq q$ для n=1 и n=2.
+
+$n=1:\frac{a_{2}}{a_{1}}\leq q\Leftrightarrow a_{2}\leq q*a_{1}$; 
+$n=2:\frac{a_{3}}{a_{2}}\leq q\Leftrightarrow a_{3}\leq q*a_{2}\leq q^{2}*a_{1}$; 
+След. $\forall n$ будет справ. нерав. $a_{n}\leq q^{n-1}*a_{1}$. При этом ряд $\sum_{n=1}^{\infty} q^{n-1}*a_{1}$ явл. сход., значит по признаку сравнения ряд $\sum_{n=1}^{\infty} a_{n}$ тоже сход.
+Если $frac{a_{n+1}}{a_{n}}\geq 1$, то справ. нерав. $a_{n+1}\geq a_{n}>0$, что против. необх. усл. сходимости ряда $(\lim_{n\rightarrow \infty }a_{n}=0)$. Значит ряд $\sum_{n=1}^{\infty} a_{n}$ расходится.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{25. Радикальный признак Коши}
+\begin{Th}
+Пусть дан ряд с неотрицательными слагаемыми:
+$\sum\limits_{n=1}^{\infty} a_{n}=a_{1}+a_{2}+...+a_{n}+...
+a_{n}\geq 0$; 
+Если начиная с номера $n_{0}\epsilon \mathbb{N} \forall n>n_{0}$ вып. нерав. $\sqrt[n]{a_{n}}\leq q<1 q\epsilon \mathbb{R}$, то ряд сход.
+Если $\exists n_{0}\epsilon \mathbb{N}:\forall n>n_{0} \sqrt[n]{a_{n}}\geq 1$, то ряд расход.
+\begin{Proof}
+Пусть $\exists n_{0}\epsilon \mathbb{N}:\forall n>n_{0}\sqrt[n]{a_{n}}\leq q\Leftrightarrow a_{n}\leq q^{n}$. Так как$ 0<q<1$, то ряд $ \sum_{n=1}^{\infty} q^{n}$ будет сход., а значит по призн. сравнения ряд $\sum_{n=1}^{\infty} a_{n}$ так же сход.
+Если $\exists n_{0}\epsilon \mathbb{N}:\forall n>n_{0}\sqrt[n]{a_{n}}\geq 1\Leftrightarrow a_{n}\geq 1$, что против. необх. условию сходимости $(\lim_{n\rightarrow \infty }a_{n}=0)$. Значит ряд $\sum_{n=1}^{\infty} a_{n}$ расходится.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{26. Интегральный признак сходимости. Сходимость обощенного ряда Дирихле.}
+Интегральный признак.
+\begin{Th}
+Пусть функция f определенная при всех $x\geq1$, неотриц. и убыв., тогда ряд $\sum_{n=1}^{\infty}f(n)$ сходится тогда и только тогда, когда сходится интеграл $\int_{1}^{+\infty}{f(x)dx}$.
+\begin{Proof}
+Т.к ф-я монотонна на $(1, +\infty)$ то она инт. по Риману. Если $k\leq x\leq k+1$, тогда $f(k)\geq f(x)\geq f(k+1), k=1,2, ...$ (функция убыв.). Проинт. это нерав. $ \left[k,k+1\right]$ имеем: $f(k)\geq \int\limits_{k}^{k+1}{f(x)dx}\geq f(k+1), k=1,2, ...$; Суммируя от $k=1$ до $k=n$ получим: $\sum\limits_{k=1}^{n}{f(k)}\geq \int\limits_{1}^{n+1}{f(x)dx}\geq \sum\limits_{k=1}^{n}{f(k+1)}$; Положим $s_{n}=\sum_{k=1}^{n}{f(k)}$, будем иметь $s_{n}\geq \int\limits_{1}^{n+1}{f(x)dx}\geq s_{n+1}-f(1)
+n=1,2, ...$; Если интеграл сход, то в силу неотрици f справ. неравенство: $\int\limits_{1}^{n+1}{f(x)dx}\leq \int\limits_{1}^{+\infty}{f(x)dx}$. Отсюда следует: $s_{n+1}\leq f(1)+\int\limits_{1}^{+\infty}{f(x)dx}$, следовательно, т.к последовательность частичных сумм ограничена сверху, то ряд сходится.
+\end{Proof}
+\end{Th}
+
+Сходимость обощенного гарм. ряда(ряда Дирихле):
+\begin{Th}
+Ряд вида $\sum_{n = 1}^{\infty}\frac{1}{n^\alpha}$ расходится при всех $\alpha \leq 1$ и сходится при всех $\alpha > 1$.
+\begin{Proof}
+При $\alpha=1$ получаем гарм. ряд, а он расходится. При $0<\alpha<1$ имеем: $S_{n}(\alpha)=1+ \frac{1}{2^{\alpha}}+\cdots +\frac{1}{n^{\alpha}}\geq n \cdot \frac{1}{n^{\alpha}}=n^{1-\alpha}\underset{n\rightarrow \infty }{\rightarrow}\infty$; Из этого следует, что $S_{n}(\alpha)\rightarrow +\infty$ , а из этого следует расходимость ряда. Рассмотрим случай $\alpha>1$. Выберем такое натуральное $m$, что $n<2^{m}$. Тогда имеем: $S_{n}(\alpha)\leq S_{2^{m}-1}(\alpha)=1+\left ( \frac{1}{2^{\alpha}}+\frac{1}{3^{\alpha}} \right )+\left ( \frac{1}{4^{\alpha}}+\frac{1}{5^{\alpha}}+\frac{1}{6^{\alpha}}+\frac{1}{7^{\alpha}} \right )+ \cdots +\left ( \frac{1}{(2^{m-1})^{\alpha}}+\frac{1}{(2^{m-1}+1)^{\alpha}}+\cdots +\frac{1}{(2^{m}-1)^{\alpha}} \right )\leq 1+2^{1-\alpha}+(2^{2})^{1-\alpha}+\cdots +(2^{m-1})^{1-\alpha}=1+2^{1-\alpha}+(2^{1-\alpha})^{2}+\cdots +(2^{1-\alpha})^{m-1}=\frac{1-(2^{1-\alpha})^{m}}{1-2^{1-\alpha}}$. Отсюда следует, что при $\alpha>1$ имеем $S_{n}(\alpha)\leq \frac{1}{1-2^{1-\alpha}}$, т.е. посл. частич. сумм ограниченна сверху, и по теореме о сходимости рядов с неот. членами ряд сход. при $\alpha>1$.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{27. Знакочередующиеся ряды. Признак Лейбница. Оценка остаточного члена.}
+\begin{Def}
+Числовой ряд вида $u_{1}-u_2+u_3-u_4+...+(-1)^{n-1}u_n+...$, где $u_n$ - это модуль члена ряда, называется знакочередующимся числовым рядом.
+\end{Def}
+
+\begin{Th}
+Если для знакочеред.  ряда
+$u_{1}-u_2+u_3-u_4+...+(-1)^{n-1}u_n+...(*)$
+Выполняются два условия:
+1)Члены ряда монот. убыв. по модулю $u_{1} > u_2 > ...> u_n > ...$
+2)$\lim_{n \to \infty} u_n = 0$
+то ряд (*) сходится, при этом сумма положительна и не превосходит первого члена ряда.
+\begin{Proof}
+Част. сумму чётного порядка запишем так: $S_{2n}=(u_{1}-u_2)+(u_3-u_4)+...+(u_{2n-1}-u_{2n})$.
+По условию $u_{1} > u_2 > ...> u_{2n-1} > u_{2n}$, след. все разн. в скобках положительны, значит, $S_{2n}$ увелич. с возрастанием $n$  и $ S_{2n}>0$ при любом $n$.Если переписать так $S_{2n}=u_{1}-[(u_2-u_3)+(u_4-u_5)+...+(u_{2n-2}-u_{2n-1})+u_{2n}]$. Выраж. в скобках полож. и  $S_{2n}>0$, поэтому  $S_{2n}<u_1 \forall n$. След. посл. частичных сумм $S_{2n}$ ограничена и возрастает, след., существует конечный  $\lim_{n \to \infty}S_{2n}=S$. При этом $ 0<S_{2n}\leq u_1$.Переходя к частичной сумме нечётн порядка, имеем $S_{2n+1}=S_{2n}+u_{2n+1}$. Перейдём в посл. равенстве к пределу при $n \to \infty:\lim_{n \to \infty}S_{2n+1}=\lim_{n \to \infty}S_{2n}+\lim_{n \to \infty}u_{2n+1}=S+0=S$. Таким образом, частичные суммы как чётного, так и нечётного порядка имеют один и тот же предел S, поэтому $\lim_{n \to \infty}S_{n}=S$, следовательно данный ряд сходится.
+\end{Proof}
+\end{Th}
+Остаток знакочередующегося ряда по модулю всегда меньше первого отброш. члена.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{28.Абсолютная и условная сходимость знакопеременных рядов. Теорема о связи абсолютной и обычной сходимости.}
+\begin{Def}
+Пусть ряд вида $(2) \sum_{n=1}^\infty a_n$ - знакопеременный, т.е количество отрицательных и неотрицательных $a_n$ бесконечно. Тогда гооврят, что если сходится ряд вида $(1) \sum_{n=1}^\infty |a_n|$ - то ряд сходится абсолютно. А если (1) - расходится, но сходится ряд (2), то ряд сходится условно.
+\end{Def}
+Связь абсолютной и условной сходимости:
+\begin{Th}
+Если сходится ряд (1), то сходится и ряд (2).
+\begin{Proof}
+Пусть $S_n$ - частичная сумма ряда (2), а $\alpha_n$ - част. сумм. ряда (1); По условию, существует конеч. пред. $\lim_{n \to \infty} \alpha_n = \alpha$, при этом: $(3)\forall n \in \mathbb{N}: \alpha_n \leq \alpha$; Пусть $S*_n$ - сумма положительных, а $S\&_n$ - сумма отрицательных членов. Тогда: $(4): S_n = S*_n - S\&_n$; $(5): \alpha_n = S*_n + S\&_n$. Видн. что посл. не убывают. Из (5) след. что они огран. $S*_n \leq \alpha_n \leq \alpha$ и $S\&_n \leq \alpha_n \leq \alpha$. След. сущ. $\lim_{n \to \infty} S*_n = S*$ и $\lim_{n \to \infty} S\&_n = S\&$. Отсюда, в силу (4):$\lim\limits_{n\rightarrow\infty }S_{n}=\lim\limits_{n\rightarrow\infty }(S*_{n}-S\&_{n})=\lim\limits_{n\rightarrow\infty }S*_{n}-\lim\limits_{n\rightarrow\infty }S\&_{n}=S*-S\&$. Значит ряд сходится.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{29. Признаки Дирихле и Абеля сходимости рядов (без доказательства).}
+Дан ряд вида: $(1): \sum\limits_{n=1}^{\infty}a_{n}b_{n}=a_{1}b_{1}+a_{2}b_{2}+…+a_{n}b_{n}+…$, где соотв. $a_n$ и $b_n$ - две числовых последовательности.
+Признак Дирихле:
+\begin{Th}
+Ряд (1) сходится, если: 1)Посл. част. сумм ряда $\sum_{n=1}^\infty b_n$ ограничена(т.е ряд сходится);
+2) Последовательность $a_n$ монотонно стремится к нулю.
+\end{Th}
+Признак Абеля:
+\begin{Th}
+Ряд (1) сходится, если: 1)Ряд $\sum_{n=1}^\infty b_n$ сходится; 2) Последовательность $\{a_n\}$ - монотонна и ограничена.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{30. Функциональные последовательности и ряды. Поточечная и равномерная сходимость.}
+\begin{Def}
+Пусть каждому $n \in \mathbb{N}$ ставится в соотв. ф-я $f_n(x): E \to \mathbb{R}$. Тогда говорят, что $\{f_n(x)\}$ - функциональная последовательность.
+Выражение вида $f_1(x) + f_2(x) + \ldots + f_n(x) + \ldots = \sum_{n=1}^\infty f_n(x)$ называют функциональным рядом.
+\end{Def}
+Поточечная сходимость:
+\begin{Def}
+Если в нек. точке $x_0 \in E$ (или некотором конечном числе таких точек) числовой ряд $\sum_{n=1}^\infty f_n(x_0)$ сходится, то говорят, что ряд сходится поточечно.
+\end{Def}
+Равномерная сходимость:
+\begin{Def}
+Ряд называется равномерно сходящимся на мн-ве $E$ если последовательноть его частичных сумм $S_n(x)$ сходится на E. Иначе говоря: $\forall \varepsilon >0 \quad \exists n_{ \varepsilon  }\in \mathbb{N}: \forall n \ge n_\varepsilon \  \forall x \in E  \Rightarrow \left|r_n(x)\right| < \varepsilon$, где $ S_n(x)-S(x)=r_n(x)$ - n-й остаток ряда. $r_n(x) =\sum_{k = n + 1}^\infty f_k(x)$.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{31. Признак Вейерштрасса равномерной сходимости функциональных рядов.}
+\begin{Th}
+Если для функ. ряда $\sum\limits_{n=1}^{\infty}{u}_{n}(x)$ можно указать такой сход. числ. ряд $\sum\limits_{n=1}^{\infty}{a}_{n}$, что $\forall n\geq n_{0}$ и $\forall x \in \varepsilon$ вып. условие $\left | u_{n}(x) \right |\leq a_{n}$ то ряд $\sum\limits_{n=1}^{\infty}{u}_{n}(x)$ сходится абсолютно и равномерно на множестве E.
+\begin{Proof}
+Согласно условию $\left | u_{n}(x) \right |\leq a_{n}$ - $\forall n\geq n_{0}$, $\forall p \in N$ и $\forall x \in \varepsilon$ вып. нерав. $\left | \sum_{k=n+1}^{n+p} u_{k}(x)\right |\leq \sum_{k=n+1}^{n+p}\left | u_{k}(x)\right |\leq \sum_{k=n+1}^{n+p} a_{k}$. Из сход. $\sum_{n=1}^{\infty}{a}_{n}$ следует, что для него вып. условие Коши, т.е. $\forall \varepsilon > 0  \exists N_{\varepsilon} : \forall n \geq  N_{\varepsilon} \forall p \in N \rightarrow  \sum_{n=1}^{\infty}{a}_{n} $ и $\exists N_{\varepsilon} : \forall n \geq  N_{\varepsilon} \forall p \in N \rightarrow  \sum_{n=1}^{\infty}{a}_{n}$ и  $\exists N_{\varepsilon} : \forall n \geq  N_{\varepsilon} \forall p \in N \forall x \in E \rightarrow  \left |\sum_{k=n+1}^{\infty}{u}_{k}(x)   \right | < \varepsilon$ , и в силу критерия Коши равн. сход. ряда этот ряд сход. равн. на множестве E. Абс. сход. $\sum_{n=1}^{\infty}{u}_{n}(x)$ $\forall x \in \varepsilon$ следует из правого нерав. $\left | \sum_{k=n+1}^{n+p} u_{k}(x)\right |\leq \sum_{k=n+1}^{n+p}\left | u_{k}(x)\right |\leq \sum_{k=n+1}^{n+p} a_{k}$.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{32. Теорема о непрерывности суммы равномерно сходящегося ряда (без доказательства).}
+\begin{Th}
+Пусть все члены функ. ряда $u_1(x) + u_2(x) + \ldots + u_n(x) + \ldots$ определены и непрерывны на отрезке $[a,b]$, а сам ряд равномерно сходится на этом отрезке. Тогда сумма ряда $S(x)$ будет непрерывной функцией на этом сегменте; 
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{33. Теоремы о почленном дифференцировании и интегрировании функциональных рядов (без доказательства).}
+Почленное дифференцирование:
+\begin{Th}
+Пусть на $\left[a;b\right]$ задана посл. непрерывно дифф. ф-й $\left \{ u_{n} \right \}$, такая, что $\sum_{n=1}^{\infty }u_{n}(x)$ сход. в $x\in \left[a;b\right]$, а ряд $\sum_{n=1}^{\infty }u'_{n}(x)$ сход.  равномерно на $\left[a;b\right]$. Тогда исходный $\sum_{n=1}^{\infty }u_{n}(x)$ равном. сход. на всем $\left[a;b\right]$, его сумма явл. непрерывно дифф. ф-й и справ. равенство $\left ( \sum_{n=1}^{\infty }u_{n}(x) \right )'=\sum_{n=1}^{\infty }u'_{n}(x)\; (x\in \left[a;b\right])$.
+\end{Th}
+Почленное интегрирование:
+\begin{Th}
+Пусть $\left \{ u_{n} \right \}$ — послед. непрерыв. на $\left[a;b\right]$ ф-й такова, что $\sum_{n=1}^{\infty }u_{n}(x)$ сход. равномерно на $\left[a;b\right]$. Тогда справ. равенство: $\int\limits_{a}^{b}\sum_{n=1}^{\infty }u_{n}(x)dx=\sum_{n=1}^{\infty }\int\limits_{a}^{b}u_{n}(x)dx$;
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{34. Степенные ряды. Теорема Абеля.}
+\begin{Def}
+Ряд, членами которого являются степенные функции аргумента x, называется степенным рядом: ${\sum_{n = 1}^\infty  {{a_n}{x^n}}  } = {{a_0} + {a_1}x + {a_2}{x^2} +  \ldots  + {a_n}{x^n} +  \ldots }$. Так-же имеет место степ. ряд сл. вида: ${\sum_{n = 1}^\infty  {{a_n}{{\left( {x - {x_0}} \right)}^n}}  } = {{a_0} + {a_1}\left( {x - {x_0}} \right) + {a_2}{\left( {x - {x_0}} \right)^2} } + { \ldots  + {a_n}{\left( {x - {x_0}} \right)^n} +  \ldots}$
+\end{Def}
+Теорема Абеля:
+\begin{Th}
+Если степ. ряд: $(1)\sum_{n=1}^\infty a_nz^n$ сходится при $z=z_0\neq0$, то он абс. сход. $\forall z: |z| < |z_0|$.
+\begin{Proof}
+Пусть: $K=\left\{z:\left|z\right|<\left|z_{0}\right|\right\}$; $\rho=\frac{\left|z \right|}{\left|z_{0} \right|}, \rho < 1$; Из сходимости ряда (1) в точке $z_0$ следует сходимость ряда $\sum_{n=1}^\infty a_nz_0^n$, отюсда по небх. усл. $lim_{n\to \infty}a_nz_0^n = 0$; Тогда посл. $a_nz_0^n$ - огр., т.е $\exists M>0\; \forall n:\left|a_{n}z_{0}^{n}\right|< M$. Имеем: $\left|a_{n}z^{n}\right|=\left|a_{n}z^{n}\right|\cdot \left|\frac{z_{0}^{n}}{z_{0}^{n}}\right|=\left|a_{n}z_{0}^{n}\cdot\frac{z^{n}}{z_{0}^{n}}\right|=\left|a_{n}z_{0}^{n}\right|\cdot\left|\frac{z^{n}}{z_{0}^{n}}\right|=\left|a_{n}z_{0}^{n}\right|\rho^{n} < M\rho^{n}$. Ряд $\sum_{n=0}^{\infty}M\rho^{n}$ сходится, т.к $\rho < 1$. Отсюда по призн. сравнения ряд (1) сходится в поставленных границах.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{35. Радиус, интервал и область сходимости степенного ряда.}
+\begin{Def}
+Областью называют область определения ф-ии $f(x) = \sum_{n=1}^\infty a_n x^n$, т.е мн-во таких точек, в которых ряд сходится. Если эта область представима в виде $[x_0 - R, x_0+R], R > 0$, то такую область называют интервалом сходимости, а $R$ - радуисом сходимости. Притом сходимость в граничных точках должна быть проверена отдельно.
+\end{Def}
+Вычисление радиуса: 1)По формуле из рад. призн. Коши $R = \lim_{n \to \infty } \frac{1}{{\sqrt[\large n\normalsize]{{{a_n}}}}}$; 2)По форм. из призн. Даламбера: $R = \lim_{n \to \infty } \left| {\frac{{{a_n}}}{{{a_{n + 1}}}}} \right|$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{36. Ряды Тейлора и Маклорена. Достаточное условие разложимости функции в ряд Тейлора (без доказательства).}
+\begin{Def}
+Пусть $f: U(x_0) \to \mathbb{R}$ - беск. дифф в т. $x_0$. Тогда $\sum_{n=0}^\infty \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n$ называют рядом Тейлора(при $x_0$ рядом маклорена) ф-ии $f(x)$ в т.$x_0$.
+\end{Def}
+Дост. усл. разложимости в ряд Тейлора.
+\begin{Th}
+Если ф-я $f$ имеет произв. всех порядков на пром. $(1)(x_0-R, x_0 + R)$ и все произв. огр. т.е $\exists L>0: \forall x \in (1)$ и $\forall n \in \{1, 2, \ldots\}$ вып.: $|f^{(n)}(x)| \leq L$, где $L$ не зав. от $n$, то ф-я представима в виде ряда тейлора.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{37.  Разложение основных элементарных функций в ряд Маклорена.}
+$e^{x}=1+x+\frac{x^{2}}{2!}+ \ldots +\frac{x^{n}}{n!}+ \ldots = \sum_{n=0}^{\infty }\frac{x^{n}}{n!}, x\in \mathbb{R} (2)$;
+$\text{sh} \, x=x+\frac{x^{3}}{3!}+ \ldots +\frac{x^{2n+1}}{(2n+1)!}+ \ldots =\sum_{n=0}^{\infty }\frac{x^{2n+1}}{(2n+1)!}, x\in \mathbb{R} (3)$;
+$\text{ch} \, x=1+\frac{x^{2}}{2!}+ \ldots +\frac{x^{2n}}{(2n)!}+ \ldots =\sum_{n=0}^{\infty }\frac{x^{2n}}{(2n)!}, x\in \mathbb{R} (4)$;
+$\sin x =x-\frac{x^{3}}{3!}+ \ldots +(-1)^{n}\frac{x^{2n+1}}{(2n+1)!}+ \ldots = \sum_{n=0}^{\infty }(-1)^{n}\frac{x^{2n+1}}{(2n+1)!}, x\in \mathbb{R} (5)$;
+$\cos x =1-\frac{x^{2}}{2!}+ \ldots +(-1)^{n}\frac{x^{2n}}{(2n)!}+ \ldots =\sum_{n=0}^{\infty }(-1)^{n}\frac{x^{2n}}{(2n)!}, x\in \mathbb{R} (6)$;
+$\ln(1+x)=x-\frac{x^{2}}{2}+ \ldots +(-1)^{n+1}\frac{x^{n}}{n}+ \ldots =\sum_{n=1}^{\infty }(-1)^{n+1}\frac{x^{n}}{n}, (8)$ при $x\in (-1,1]$;
+$(1+x)^{\alpha }=1+\sum_{n=1}^{\infty }\frac{\alpha (\alpha -1) \ldots (\alpha -n+1)}{n!}x^{n}+\ldots, (10)$ при $x\in (-1,1)$;
+$\frac{1}{1+x}=1-x+x^{2}-\ldots=\sum\limits_{n=0}^{\infty }(-1)^{n}x^{n},  x\in \mathbb{R}(11)$;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{38. Тригонометрические ряды Фурье.}
+\begin{Def}
+Тригонометрический ряд Фурье есть предстваление нек-й ф-ии $f$ с периодом $\tau$ в виде сл. ряда: $
+f(x)=\frac{a_0}{2} + \sum^{\infty}_{n=1} (a_n \cos nx + b_n \sin nx)$, где: $a_0 = \frac{1}{\pi}\int_{-\pi}^\pi f(x)dx; a_n = \frac{1}{\pi}\int_{-\pi}^\pi f(x) cos(nx)dx; b_n = \frac{1}{\pi}\int_{-\pi}{\pi}f(x)sin(nx)dx$;
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{39. Достаточное условие сходимости тригонометрического ряда Фурье в точке (без доказательства).}
+\begin{Th}
+Ряд фурье ф-ии f(x) сходится, если интеграл $\int _{-\pi }^{\pi }(f(x+z)-f(x))D_{n}(z)dz = 0$, где $D_n(z)$ - n-е ядро дирихле. ${D_n}(z) = \frac{sin({n + \frac{1}{2}})z}{sin \frac{z}{2}}= 2(\frac{1}{2} + \sum_{n = 1}^N cos nz)$
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{40. Ряды Фейера. Теорема о сходимости ряда Фейера  (без доказательства).}
+Пусть $S_0(x), \ldots, S_n(x), \ldots$ - суммы фурье;$D_0(x), \ldots, D_n(x), \ldots$ - ядра Дирихле;
+$\rho_n(x) = \frac{1}{n+1}(S_0(x) + \ldots + S_n(x))$ - n-я сумма Фейера. $\phi(x) = \frac{1}{n+1}(D_0(x) + \ldots + D_n(x))$ - ядро фейера.
+\begin{Th}
+$f(x)$ - непр. на $[-\pi, \pi]$, $f(-\pi) = f(\pi)$; $f(x)$ - 2$\pi$ переодичная на $\mathbb{R}$, тогда ряд фейера сходится, т.е $\lim_{n \to \infty} \rho_n(x) = f(x)$;
+\end{Th}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{41. Первая теорема Вейерштрасса об аппроксимации функций.}
+\begin{Th}
+Любую непрерывную 2$\pi$ - переод. ф-ю можно с любой степенью точности прибл. тригон. многочл., т.е $\forall \varepsilon > 0 : \exists T_n(x): max_{-\infty < x < +\infty} |f(x) - T_n(x)| < \varepsilon$;
+\begin{Proof}
+ Т.к сумма Фейера $\rho_n(x)$ - средн. арифм. частичн. сумм ряда фурье ф-ии $f(x)$ который явл. триг. многочл. то она тоже будет тригон. многочленом. Отсюда следует в силу Т.Фейера $\forall \varepsilon > 0: \exists \rho_n(x): \max_{x \in \mathbb{R}}|f(x) - \rho_n(x)| < \varepsilon$;
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{42. Вторая теорема Вейерштрасса об аппроксимации функций.}
+\begin{Th}
+Пусть $f(x)$ - непр. ф-я на $[a; b]$; Тогда $\forall \varepsilon > 0:  \exists P_n(x)$ - алгебраический многочлен, т.ч $\forall x \in [a; b] |f(x) - P_n(x)| < \varepsilon$;
+\begin{Proof}
+$[0; \pi] \to [a; b]; x = a + \frac{b-a}{\pi}\cdot t, (t = \frac{x-a}{b-a}\cdot \pi)$;
+$f_*(t) = f(a+\frac{b-a}{\pi}\cdot t), (t \in [0; \pi])$;
+$f_*(t) = f_*(-t), (\forall t \in [-\pi; 0])$;
+Следовательно, т.к ф-я удовл. усл теор. вейерштрасса то по ней: $\forall \varepsilon > 0 \exists T_m(t)$ - тригоном. многочл. $\forall t \in [-\pi; \pi]: |f_*(t) - T_m(t)| < \varepsilon / 2$;
+Т.к тригонометрические функции можно разложить в ряд Тейлора, равномерно сход. на $[-\pi; \pi] \Rightarrow \exists P_n(t) : \forall t \in [-\pi; \pi]:|T_m(t) - P_n(t)| < \varepsilon / 2 \Rightarrow \forall t \in [-\pi; \pi]: |f_*(t) - P_n(t)| \leq |f_*(t) - T_m(t) + |T_m(t)-P_n(T)|| < \varepsilon /2 + \varepsilon / 2 = \varepsilon$;
+$\Rightarrow \forall x \in [a; b]: |f(x) - P_n(\frac{x-a}{b-a}\cdot \pi)| < \varepsilon$;
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{multicols}
+\end{document}
+\end{verbatim}
+
+\rule{0.3\linewidth}{0.25pt}
+\scriptsize
+
+Copyright \copyright\ 2014 Winston Chang
+
+\href{http://wch.github.io/latexsheet/}{http://wch.github.io/latexsheet/}
+
+
+\end{multicols}
+\end{document}
