@@ -1,0 +1,375 @@
+\documentclass[unicode,10pt, landscape]{article}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage[russian]{babel}
+\usepackage[utf8]{inputenc}
+
+% To make this come out properly in landscape mode, do one of the following
+% 1.
+%  pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+
+% If you're reading this, be prepared for confusion.  Making this was
+% a learning experience for me, and it shows.  Much of the placement
+% was hacked in; if you make it better, let me know...
+
+
+% 2008-04
+% Changed page margin code to use the geometry package. Also added code for
+% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
+% for the suggestions.
+
+% 2006-08
+% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
+
+
+% To Do:
+% \listoffigures \listoftables
+% \setcounter{secnumdepth}{0}
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\newenvironment{Proof} % имя окружения
+{\par\noindent{\bf Док-во:}} % команды для \begin
+{\hfill$\scriptstyle\blacksquare$}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{2}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+\newtheorem{Def}{Опр.}
+\newtheorem{Prop}{Св-во.}
+\newtheorem{Th}{Теор.}
+
+\begin{center}
+     \Large{\textbf{Шпоры по математическому анализу.}} \\
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{1. Разбиения множеств в $ \mathbb{R}^n $ (определение, свойства)}
+\begin{Def}
+
+Разбиением $\bf{\tau}$ мн-ва $\mathcal{S} \subseteq \mathbb{R}^n$ назыв. семейство мн-в $\mathcal{S}_\alpha$, таких что:
+\begin{itemize}
+
+\item $\forall \alpha, \beta : \mu(\mathcal{S}_\alpha \cap \mathcal{S}_\beta) = 0$, где $\mu$ - мера Жордана.
+
+\item $\bigcup_{\tau} \mathcal{S}_\alpha = \mathcal{S}$
+
+Обознач. : $\{\tau_k\}, \tau_k = \{ \mathcal{S}_{k, 1}, \mathcal{S}_{k, 2}, \ldots, \mathcal{S}_{k, j_k} \}$
+
+\end{itemize}
+
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{2. Измеримые множества в $\mathbb{R}^n$ (определение, критерий)}
+Определение
+\begin{Def}
+Множество $\mathcal{S} \subseteq \mathbb{R}^n$ называют измеримым (по Жордану), если $\lim_{k \to \infty} \mu(\mathcal{S}_k) < +\infty$, где $\mu$ - мера Жордана. При этом полагают, что $\mu(\mathcal{S}) = \lim_{k \to \infty}\mu(\mathcal{S}_k)$.
+\end{Def}
+Критерий
+\begin{Th}
+Мн-во $\mathcal{S} \subset \mathbb{R}^n$ измеримо $\Leftrightarrow$ $\mathcal{S}$ - огранич. и $\exists \mu(\delta\mathcal{S}) = 0$. 
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{3. Интегральные суммы и суммы Дарбу в $\mathbb{R}^n$}
+\begin{Def}
+Пусть $b: \mathcal{S} \subseteq \mathbb{R}^n \to \mathbb{R}$, тогда величина $\mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k}) = \sum_{j = 1}^{j_k} b(\xi_{k, j})\mu(\mathcal{S}_{k,j})$ называется интегральной суммой(Римана) для функции $b$, соотв. разбиению $\tau_k$.
+\end{Def}
+\begin{Def}
+Обозначим $\tau = \{\mathcal{S}_k\}_{k=1}^\infty$; $\mathcal{M}_k = sup_{x \in \mathcal{S}_k} b(x)$; $m_k = inf_{x \in \mathcal{S}_k} b(x)$; Тогда величины: $\overline{\overline{\mathbb{S}}}(\tau) = \sum_{k = 1}^n \mathcal{M}_k \mu(\mathcal{S}_k)$ и $\underline{\underline{\mathbb{S}}}(\tau) = \sum_{k=1}^n m_k \mu(\mathcal{S}_k)$ называют соответственно верхней  нижней суммой Дарбу для ф-ии $b(x)$, соотв. разбиению $\tau$.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{4. Кратный интеграл Римана(определение, свойства)}
+\begin{Def}
+Если $\exists \mathcal{I} = \lim_{k \to \infty} \mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k})$, не зависящий: 
+\begin{itemize}
+\item От выбора $\{\tau_k\}$ c $|\tau_k| \to 0$
+\item От выбора $\xi_{k, j}$
+\end{itemize}
+То ф-ю $b$ называютинтегрируемой по Риману на мн-ве $\mathcal{S}$, а величину $\mathcal{I}$ назыв. интегралом Римана от ф-ии $b$ по мн-ву $\mathcal{S}$.
+Обозн. : $\int_{\mathcal{S}}b(x)dx$ или $\int\int\ldots\int b(x_1, \ldots, x_n) dx_1\ldots dx_n$.
+\end{Def}
+
+Свойства кратного интеграла Римана:
+\begin{itemize}
+\item 1) Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо. Тогда $\int_{\mathcal{S}}dx = \mu(\mathcal{S})$.
+\item 2) Линейность. $\int_{\mathcal{S}}(\alpha b(x) + \beta g(x))dx = \alpha\int_\mathcal{S}b(x)dx + \beta\int_\mathcal{S}g(x)dx$; $\mathcal{S} \subset \mathbb{R}^n$; $b,g: \mathcal{S} \to \mathbb{R}$; $\alpha, \beta \in \mathbb{R}$.
+\item 3) $\mathcal{S} \subset \mathbb{R}^n$ - измеримо. $b \in \mathcal{R}(\mathcal{S})$ - ограничено, где $\mathcal{R}(\mathcal{S})$ - мн-во всех функций инегрируемых по Риману на $\mathcal{S}$. Тогда $b \in \mathcal{R}(\mathcal{S}')$.
+\item 4) Аддитивность по мн-ву. Пусть $\mathcal{S}_1, \mathcal{S}_2 \subset \mathbb{R}^n$ - измеримы.; $\mu(\mathcal{S}_1 \cap \mathcal{S}_2) = 0$; $b \in \mathcal{R}(\mathcal{S}_1) \cap \mathcal{R}(\mathcal{S}_2)$ - ограничено. Тогда $b \in \mathcal{R}(\mathcal{S}_1 \cap \mathcal{S}_2)$ и $\int_{\mathcal{S}_1 \cap \mathcal{S}_2}b(x)dx = \int_{\mathcal{S}_1}b(x)dx + \int_{\mathcal{S}_2}b(x)dx$.
+\item 5) Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b, g \in \mathcal{R}(\mathcal{S})$; Если $inf_{x \in \mathcal{S}} |g(x)| > 0$, то $\frac{b}{g} \in \mathcal{R}(\mathcal{S})$.
+\item 6) Монотонность. Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b, g \in \mathcal{R}(\mathcal{S})$; $\forall x \in \mathcal{S}  b(x) \geq g(x)$; Тогда $\int_\mathcal{S}b(x)dx \geq \int_\mathcal{S}g(x)dx$.
+\item 7) Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b \in \mathcal{R}(\mathcal{S})$ - огр.; Тогда $|b| \in \mathcal{R}(\mathcal{S})$, причем $|\int_\mathcal{S}b(x)dx| = \int_\mathcal{S}|b(x)|dx$.
+\item 8)  Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b \in \mathcal{R}(\mathcal{S})$ - огр.; $b \in \mathcal{R}(\mathcal{S})$ - огр.; $\forall x \in \mathcal{S}  b(x) \geq 0$; $\exists x_0 \in \mathcal{S}: b(x_0) > 0$ и $b$ непрерывно в $x_0$. Тогда $\int_\mathcal{S}b(x)dx > 0$.
+\item 9) Полная аддитивность.  Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $\{\mathcal{S}_k\}_{n\in\mathbb{N}} : \forall n \in \mathbb{N} \mathcal{S}_n \subset \mathcal{S}_{n+1}$; $\bigcup_{n=1}^\infty \mathcal{S}_n = \mathcal{S}$; $b \in \mathcal{R}(\mathcal{S})$; Тогда $\lim_{n \to \infty} \int_{\mathcal{S}_n} b(x)dx = \int_{\mathcal{S}} b(x)dx$.
+\item 10) Теорема о среднем.  Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримo; $b$ - непр. и огр. в $\mathcal{S}$; Тогда $\exists x_0 \in \mathcal{S}: \int_\mathcal{S} b(x_0)dx = b(x_0)\mu(\mathcal{S}) = \int_{\mathcal{S}} b(x)dx$.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{5. Критерии интегрируемости ф-й в $\mathbb{R}^n$}
+Критерий Дарбу.
+\begin{Th}
+Если $\exists \mathcal{I} = inf_{\tau}\overline{\overline{\mathbb{S}}}(\tau) = sup_{\tau}\underline{\underline{\mathbb{S}}}(\tau) < \infty$ по всем разбиениям $\tau$ измеримого мн-ва $\mathcal{S}$ для ф-ии $b: \mathcal{S} \to \mathbb{R}$ $\Leftrightarrow$ $b \in \mathcal{R}(\mathcal{S})$ и $\int_\mathcal{S}b(x)dx = \mathcal{I}$.
+\end{Th}
+Критерий Лебега.
+\begin{Th}
+Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b \in \mathcal{R}(\mathcal{S})$ - огр.; $\exists \mathcal{S}_1, \mathcal{S}_2 \subset \mathcal{S}: \mathcal{S}_1 \cap \mathcal{S}_2 = \phi; \mathcal{S}_1 \cup \mathcal{S}_2 = \mathcal{S}$; $b$ - непрерывно на $\mathcal{S}_1, \mu(\mathcal{S}_2) = 0$. Тогда и только тогда $b \in \mathcal{R}(\mathcal{S})$.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{6. Сведение кратного интеграла к повторному}
+\begin{Th}
+Пусть $\mathcal{S} - $ стандартная область относительно $O_y$; $b: \mathcal{S} \to \mathbb{R}$ - непр; Тогда $(1) \int\int_\mathcal{S}b(x,y)dxdy =  \int_a^b dx (2)\int_{\phi(x)}^{\psi(x)}b(x, y)dy$, где (1) - существует по крит. Лебега, а (2) - $F(x)$ - непр.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{7. Несобственные кратные интегралы (определение, критерий сходимости, признак сравнения)}
+\begin{Def}
+Пусть $G$ - область в $\mathbb{R}^n$; $b: G \to \mathbb{R}$; b - интегрируема на $\mathcal{X}$; $\forall \mathcal{X} \subset G$ - комп.; Тогда $\int_G b(x)dx$ - несобственный кратный интеграл.
+\end{Def}
+Признак сходимости.
+\begin{Def}
+$\int_G b(x)dx$ - сходится, если $\exists \mathcal{I} = \lim_{m \to \infty} \int_{G_m}b(x)dx$, $\forall\{ G_m \}$ - исчерпывающее для $G$, где $\mathcal{I} - $ const; Обозн.: $\mathcal{I} = \int_G bdx$.
+\end{Def}
+Признак сравнения.
+\begin{Th}
+Пусть $b, g \geq 0$ - удовл. опред. несобств. инт.; $b \geq g$; $\exists \int_G bdx$ - сходится. Тогда $\int_G gdx$ - тоже сходится.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{8. Криволинейный интеграл 1-го рода (определение, свойства)}
+\begin{Def}
+Пусть - $\mathcal{L} = \{M(s): 0 \leq s \leq S\}$, где $M(s) = (x(s), y(s), z(s))$ - уравнение линии.; $b(x, y, z) $ - ф-я. Тогда $\int_\mathcal{L} bds := \int_0^S b(x(s), y(s), z(s))ds$ - криволинейный интеграл 1-го рода, а $\mathcal{L}$ - путь интегрирования. 
+\end{Def}
+Св-ва:
+\begin{itemize}
+\item Если $b$ - непр. на $[0, S]$, т.е на $\mathcal{L}$, тогда $\exists \int_\mathcal{L}bds$;
+\item $\int_\mathcal{L}bds$ не зависит от направления обхода.
+\item Пусть $\phi, \psi, \xi$ - непр. дифф на $[a, b]$; $\exists [\phi'(t)]^2 + [\psi'(t)]^2 + [\xi'(t)]^2 \neq 0 \forall t \in [a, b]$; Тогда $\int_\mathcal{L}bds = \int_a^b b(\phi(t), \psi(t), \xi(t))\sqrt{[\phi'(t)]^2 + [\psi'(t)]^2 + [\xi'(t)]^2}dt$
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{10. Криволинейный интеграл 2-го рода (определение, свойства)}
+\begin{Def}
+Пусть $L = AB$ - гладкая ориентированная кривая; $\overline{r}(s) = (x(s), y(s), z(s)), 0 \leq s \leq S$ - её векторное представление, $A = r(0), B = r(S)$; $\overline{a}(x,y,z) = (P(x, y, z), Q(x, y, z), R(x, y, z))$ - вектор функция. Тогда $\int_{AB}\overline{a}d\overline{r} = \int_{AB}\overline{a}\overline{r}ds$ - криволинейный интеграл 2-го рода.
+\end{Def}
+Св-ва:
+\begin{itemize}
+\item Если ф-ии  $P, Q, R$ - непрерывны, то интеграл существует.
+\item При изменении ориентации кривой интеграл меняет знак.
+\item Пусть $x(t), y(t), z(t), a \leq t \leq b$ - векторное представление гладкой кривой L. Тогда $\int_L\overline{a}d\overline{r} = \int_a^b\overline{a}   \overline{r}dt$.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{11. Формула Грина и её следствие}
+\begin{Th}
+Пусть $G$ - элемент. область; $P, Q : G \to \mathbb{R}$; $P, Q, \frac{\partial P}{\partial x}, \frac{\partial Q}{\partial y}$ - непрерывны в $G$. Тогда для крив. инт. 2-го рода вида $\oint Pdx + Qdy$ имеет место формула Грина: $\oint_G Pdx+Qdy = \int\int_G( \frac{\partial P}{\partial x} - \frac{\partial Q}{\partial y})dxdy$.
+\end{Th}
+Следствие: Пусть $G$ - обл. огр. простым замкн. контуром, кот. можно разбить на конечн. число элем. областей. $P, Q: G \to \mathbb{R}; P, Q, \frac{\partial P}{\partial x}, \frac{\partial Q}{\partial y}$ - непрерывны в $G$. Тогда имеет место формула Грина.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{12. Поверхности и их ориентация. Площадь поверхности}
+Поверхность.
+\begin{Def}
+Пусть $G \subset \mathbb{R}^2_{u,v}$. Тогда поверхностью $\mathbb{S}$ называют отображение $\overline{r}: G \to \mathbb{R}^3_{x, y, z}$. Обозн. $\overline{r}(u, v) = \{x(u, v), y(u, v), z(u, v)\}$.
+\end{Def}
+Ориентация.
+\begin{Def}
+Если на поверхн. $\mathbb{S}$ можно задать непрерывное поле нормали $\overline{\delta}(u, v)$, то такую поверхность называют ориентированной, а само такое поле - ориентацией.
+\end{Def}
+Площадь поверхности $\mathbb{S}$ можно вычислить по формуле Грина: $S(\mathbb{S}) = \frac{1}{2}\int_{\delta \mathbb{S}}xdy-ydx$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{13. Поверхностный интеграл 1-го рода}
+\begin{Def}
+Поверхностным интегралом первого рода от ф-ии $b$ по поверхности $\mathbb{S}$ называется интеграл вида: $\int\int_{(\mathbb{S})}bds = \int\int_D b(x(u,v), y(u,v), z(u,v))*\sqrt{g_{11}(u,v)g_{22}(u,v) - g_{12}^2}dvdu$, где $g_{11}(u,v) = |\overline{r}_u|^2, g_{22}(u,v) = |\overline{r}_v|^2, g_{12} = |\overline{r}_u * \overline{r}_v|$.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{14. Поверхностный интеграл 2-го рода}
+\begin{Def}
+Поверхностным интегралом второго рода называется интеграл вида: $\int\int_{\mathbb{S}+}\overline{a\delta}ds = \int\int_{\mathbb{S}+}(Pcos\alpha + Qcos\beta + Rcos\gamma)ds = \int\int_{\mathbb{S}+}Pdydz+Qdxdz+Rdxdy$.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{15. Градиент, дивергенция, ротор}
+Градиент
+\begin{Def}
+	$\nabla b(x,y,z) = $ grad $b(x, y, z) = $ $\{\frac{\partial b}{\partial x}, \frac{\partial b}{\partial y}, \frac{\partial b}{\partial z} \} = \frac{\partial b}{\partial x}i + \frac{\partial b}{\partial y}j + \frac{\partial b}{\partial y}k$ - градиент скалярного поля $b$.
+\end{Def}
+
+Дивергенция
+\begin{Def}
+	div $\overline{a}(x, y, z) = \nabla \overline{a}(x, y, z) = \frac{\partial a}{\partial x} + \frac{\partial a}{\partial y} + \frac{\partial a}{\partial y}$ - дивергенция скалярного поля $\overline{a}$.
+\end{Def}
+
+Ротор
+\begin{Def}
+	Пусть $\overline{a}(x, y, z) = P(x, y, z) + Q(x, y, z) + R(x, y, z)$, тогда rot $\overline{a}(x, y, z) = \nabla \times \overline{a}(x, y, z) = 
+	\begin{vmatrix}
+	i& j& k\\
+	\frac{\partial}{\partial x}& \frac{\partial}{\partial y}& \frac{\partial}{\partial z}\\
+	P& Q& R
+	\end{vmatrix}
+	= (\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z})i - (\frac{\partial R}{\partial x} - \frac{\partial P}{\partial z})j + (\frac{\partial Q}{\partial x} + \frac{\partial P}{\partial y})k$ - ротор (вихрь) векторного поля $\overline{a}$
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{16. Формула Гаусса-Остроградского}
+\begin{Th}
+Пусть $\mathcal{S} \subset \mathbb{R}^3$ - область, элементарная относительно $Ox, Oy, Oz$; $\mathbb{S} = \delta\mathcal{S}$ - замкнутая кусочно-гладкая поверхность;$\mathcal{S} = (x,y) \in D, \phi(x, y) \leq z \leq \psi(x, y)$, где $\phi, \psi: D \to \mathbb{R}$ - непрерывн. ф-ии и $\forall (x,y) \in D: \phi(x, y) \leq \psi(x, y)$ - элем. обл. отн. оси $Oz$. Тогда $\int\int_{\mathbb{S}+}(Pcos\alpha+Qcos\beta+Rcos\gamma)dS = \int\int\int_\mathcal{S}div\overline{a}dxdydz$, где $div\overline{a} = \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}$.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{17. Формула Стокса}
+\begin{Th}
+Пусть $\overline{a} \in C^1(s), b \in C^2(\overline{G})$. Тогда имеет место формула Стокса $\oint_{T+}\overline{a}ds = \int\int_{S}\overline{\delta}rot\overline{a}ds$.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{18. Геометрический смысл дивергенции и ротора}
+Геом. смысл дивергенции
+\begin{Th}
+	Пусть $G$ - векторное поле. $\overline{a}(x, y, z): G \to \mathbb{R}^3$; $M_0 \in G$ -  внутр. точка; $\{G_n\}: \forall n \in \mathbb{N}, M_0 \in G_n \in \overline{G_n} \subset G$; diam ${G_n}_{n \to \infty} \to 0$. Тогда div $\overline{a}(M_o) = \lim_{n \to \infty}\frac{\iint_{\delta G_n}\overline a d \overline{s}}{\mu(G_n)}$.
+	\begin{Proof}
+		По формуле Гаусса-Остроградского: $\iint_{\delta G_n}\overline a d \overline{s} = \iiint_{G_n}div\overline{a}(x, y, z)dxdydz = div\overline{a}(x, y, z) * \mu(G_n)$. Следовательно $\frac{\iint_{\delta G_n}\overline a d \overline{s}}{\mu(G_n)} = \lim_{n \to \infty} div\overline{a}(M_n) = div\overline{a}(M_0)$.
+	\end{Proof}
+\end{Th}
+Геом. смысл ротора
+\begin{Th}
+	Пусть $\overline{a}:G \to \mathbb{R}^3, G \subset \mathbb{R}^3$ - непрер. дифф.; $M_0 \in G$; $\{S_n\}$ - семейство поверхностей, содер. $M_0$, с общей нормалью $\overline{\delta}$ и кусочно-гладской пов. $\delta S_n$. Тогда $\overline{\delta}*$ rot $\overline{a} = \lim_{n \to \infty}\frac{\iint_{\delta S_n}\overline{a}d\overline{s}}{\mu(S_n)}$. Док-во аналогично дивергенции.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{19. Соленоидальные поля (определение, условие соленоидальности)}
+\begin{Def}
+	Вект. поле $a: G \to \mathbb{R}^3$ наз. соленоидальным, если поток этого поля через любую кусочно-гладкую пов-сть. $S$, ограничивающую область $G' \subset G$ равен 0.
+\end{Def}
+Условие соленоидальности
+\begin{Th}
+	Непр. дифф. поле $a : G \to \mathbb{R}^3$ соленоидально тогда и только тогда, когда $\forall M \in G : $ div $a(M) = 0$.
+	\begin{Proof}
+		Необходимость: пусть поле $a$ соленоидально. Тогда по Th. о геом. смысле дивергенц.: $\forall M \in G $ div $a(M) = \lim_{n\to\infty}\frac{\iint_{S_n = G_n} ad\overline{s}}{\mu(G_n)} = 0$, где $\iint_{S_n = G_n} ad\overline{s} = 0$ по опр. соленоидальности.
+		Доказательство достаточности следует из ф-лы Гаусса-Остроградского.
+	\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{20. Потенциальные поля (определение, условие потенциальности)}
+
+\begin{Def}
+	Поле $\overline{a}(x, y, z) = (P(x, y, z), Q(x, y, z), R(x, y, z)), \overline{a} : D \in \mathbb{R}^3 \to \mathbb{R}^3$ назыв. потенциальным если $\exists U: D \to \mathbb{R}$ - потенциальная ф-я, такая что $\nabla U(x, y, z) = \overline{a}(x, y, z)$, т.е $\frac{\partial U}{\partial x} = P(x, y, z)$ и т.д
+\end{Def}
+1-й критерий потенциальности
+\begin{Th}
+	Неп. дифф. вект. поле $\overline{a}: D \to \mathbb{R}^3$ явл. потенциальным если криволинейный инт. второго рода $\int_{\mathcal{L}}\overline{a}d\overline{s}$ - не зависит от напр. пути $\mathcal{L} \in D$, а зависит только от его начальнойи конечной точки. При этом $\int_{\mathcal{L}}\overline{a}d\overline{s} = U(M) - U(M_0)$.
+\end{Th}
+2-й критерий потенциальности
+\begin{Th}
+	Неп. дифф. вект. поле $\overline{a}: D \to \mathbb{R}^3$, где $D$ - односвязно, явл. потенциальным если $\forall M \in D: $ rot $\overline{a}(M) = 0$.
+	\begin{Proof}
+		Необходимость: Расписать ротор от поля $\overline{a}$ как градиента потенциальной ф-ии, т.е ротор от вектор-функции, составленной из записей частных производных потенциальной ф-ии $\overline{a}(x, y, z) = \nabla U(x, y, z)$. Далее необходимо показать, что в силу равенства частных проиводных второго порядка, ротор становится равен $0i + 0j + 0k$ т.е нулю.
+		Достаточность следует из формулы Стокса.
+	\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{multicols}
+\end{document}
+\end{verbatim}
+
+\rule{0.3\linewidth}{0.25pt}
+\scriptsize
+
+Copyright \copyright\ 2014 Winston Chang
+
+\href{http://wch.github.io/latexsheet/}{http://wch.github.io/latexsheet/}
+
+
+\end{multicols}
+\end{document}
