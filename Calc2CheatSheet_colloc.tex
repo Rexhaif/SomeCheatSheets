@@ -9,35 +9,6 @@
 \usepackage[russian]{babel}
 \usepackage[utf8]{inputenc}
 
-% To make this come out properly in landscape mode, do one of the following
-% 1.
-%  pdflatex latexsheet.tex
-%
-% 2.
-%  latex latexsheet.tex
-%  dvips -P pdf  -t landscape latexsheet.dvi
-%  ps2pdf latexsheet.ps
-
-
-% If you're reading this, be prepared for confusion.  Making this was
-% a learning experience for me, and it shows.  Much of the placement
-% was hacked in; if you make it better, let me know...
-
-
-% 2008-04
-% Changed page margin code to use the geometry package. Also added code for
-% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
-% for the suggestions.
-
-% 2006-08
-% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
-
-
-% To Do:
-% \listoffigures \listoftables
-% \setcounter{secnumdepth}{0}
-
-
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
 % If using another size paper, use default 1cm margins.
@@ -50,7 +21,6 @@
 
 % Turn off header and footer
 \pagestyle{empty}
- 
 
 % Redefine section commands to use less space
 \makeatletter
@@ -79,10 +49,8 @@
 {\par\noindent{\bf Док-во:}} % команды для \begin
 {\hfill$\scriptstyle\blacksquare$}
 
-
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt plus 0.5ex}
-
 
 % -----------------------------------------------------------------------
 
@@ -134,7 +102,7 @@
 \end{Def}
 Критерий
 \begin{Th}
-Мн-во $\mathcal{S} \subset \mathbb{R}^n$ измеримо $\Leftrightarrow$ $\mathcal{S}$ - огранич. и $\exists \mu(\delta\mathcal{S}) = 0$. 
+Мн-во $\mathcal{S} \subset \mathbb{R}^n$ измеримо $\Leftrightarrow$ $\mathcal{S}$ - огранич. и $\exists \mu(\delta\mathcal{S}) = 0$.
 \end{Th}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -151,7 +119,7 @@
 
 \subsection{4. Кратный интеграл Римана(определение, свойства)}
 \begin{Def}
-Если $\exists \mathcal{I} = \lim_{k \to \infty} \mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k})$, не зависящий: 
+Если $\exists \mathcal{I} = \lim_{k \to \infty} \mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k})$, не зависящий:
 \begin{itemize}
 \item От выбора $\{\tau_k\}$ c $|\tau_k| \to 0$
 \item От выбора $\xi_{k, j}$
@@ -211,7 +179,7 @@ $\int_G b(x)dx$ - сходится, если $\exists \mathcal{I} = \lim_{m \to 
 
 \subsection{8. Криволинейный интеграл 1-го рода (определение, свойства)}
 \begin{Def}
-Пусть - $\mathcal{L} = \{M(s): 0 \leq s \leq S\}$, где $M(s) = (x(s), y(s), z(s))$ - уравнение линии.; $b(x, y, z) $ - ф-я. Тогда $\int_\mathcal{L} bds := \int_0^S b(x(s), y(s), z(s))ds$ - криволинейный интеграл 1-го рода, а $\mathcal{L}$ - путь интегрирования. 
+Пусть - $\mathcal{L} = \{M(s): 0 \leq s \leq S\}$, где $M(s) = (x(s), y(s), z(s))$ - уравнение линии.; $b(x, y, z) $ - ф-я. Тогда $\int_\mathcal{L} bds := \int_0^S b(x(s), y(s), z(s))ds$ - криволинейный интеграл 1-го рода, а $\mathcal{L}$ - путь интегрирования.
 \end{Def}
 Св-ва:
 \begin{itemize}
@@ -252,7 +220,7 @@ $\int_G b(x)dx$ - сходится, если $\exists \mathcal{I} = \lim_{m \to 
 \begin{Def}
 Если на поверхн. $\mathbb{S}$ можно задать непрерывное поле нормали $\overline{\delta}(u, v)$, то такую поверхность называют ориентированной, а само такое поле - ориентацией.
 \end{Def}
-Площадь поверхности $\mathbb{S}$ можно вычислить по формуле Грина: $S(\mathbb{S}) = \frac{1}{2}\int_{\delta \mathbb{S}}xdy-ydx$. 
+Площадь поверхности $\mathbb{S}$ можно вычислить по формуле Грина: $S(\mathbb{S}) = \frac{1}{2}\int_{\delta \mathbb{S}}xdy-ydx$.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -284,7 +252,7 @@ $\int_G b(x)dx$ - сходится, если $\exists \mathcal{I} = \lim_{m \to 
 
 Ротор
 \begin{Def}
-	Пусть $\overline{a}(x, y, z) = P(x, y, z) + Q(x, y, z) + R(x, y, z)$, тогда rot $\overline{a}(x, y, z) = \nabla \times \overline{a}(x, y, z) = 
+	Пусть $\overline{a}(x, y, z) = P(x, y, z) + Q(x, y, z) + R(x, y, z)$, тогда rot $\overline{a}(x, y, z) = \nabla \times \overline{a}(x, y, z) =
 	\begin{vmatrix}
 	i& j& k\\
 	\frac{\partial}{\partial x}& \frac{\partial}{\partial y}& \frac{\partial}{\partial z}\\

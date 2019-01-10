@@ -12,31 +12,14 @@
 % To make this come out properly in landscape mode, do one of the following
 % 1.
 %  pdflatex latexsheet.tex
-%
 % 2.
 %  latex latexsheet.tex
 %  dvips -P pdf  -t landscape latexsheet.dvi
 %  ps2pdf latexsheet.ps
 
-
-% If you're reading this, be prepared for confusion.  Making this was
-% a learning experience for me, and it shows.  Much of the placement
-% was hacked in; if you make it better, let me know...
-
-
-% 2008-04
-% Changed page margin code to use the geometry package. Also added code for
-% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
-% for the suggestions.
-
-% 2006-08
-% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
-
-
 % To Do:
 % \listoffigures \listoftables
 % \setcounter{secnumdepth}{0}
-
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
@@ -50,7 +33,6 @@
 
 % Turn off header and footer
 \pagestyle{empty}
- 
 
 % Redefine section commands to use less space
 \makeatletter
@@ -90,8 +72,7 @@
 
 \raggedright
 \footnotesize
-\begin{multicols}{2}
-
+\begin{multicols}{4}
 
 % multicol parameters
 % These lengths are set only within the two main columns
@@ -134,7 +115,7 @@
 \end{Def}
 Критерий
 \begin{Th}
-Мн-во $\mathcal{S} \subset \mathbb{R}^n$ измеримо $\Leftrightarrow$ $\mathcal{S}$ - огранич. и $\exists \mu(\delta\mathcal{S}) = 0$. 
+Мн-во $\mathcal{S} \subset \mathbb{R}^n$ измеримо $\Leftrightarrow$ $\mathcal{S}$ - огранич. и $\exists \mu(\delta\mathcal{S}) = 0$.
 \end{Th}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -151,7 +132,7 @@
 
 \subsection{4. Кратный интеграл Римана(определение, свойства)}
 \begin{Def}
-Если $\exists \mathcal{I} = \lim_{k \to \infty} \mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k})$, не зависящий: 
+Если $\exists \mathcal{I} = \lim_{k \to \infty} \mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k})$, не зависящий:
 \begin{itemize}
 \item От выбора $\{\tau_k\}$ c $|\tau_k| \to 0$
 \item От выбора $\xi_{k, j}$
@@ -198,26 +179,27 @@
 
 Теорема 1.
 \begin{Th}
-Пусть $F: D \to D^*$: 
-\begin{itemize}
-\item Взаимно однозначно в $D$.
-\item Непр. дифф. в $D$.
-\item $\mathcal{J}_F (x_1, \ldots, x_n) \neq 0$ в $D$.
-\end{itemize}
-Пусть $b: D^* \to \mathbb{R}$ - непр; $X \subset \overline{X} \subset D$ - измеримы. Тогда (1): $\int_{\overline{F(x)}}b(y)dy = \int_{\overline{X}}b(F(x)|\mathcal{J}_F (x)| dx$.
+Если X измеримое мн-во со своим замыканием $G: \overline{X} \subset G \subset \mathbb{R}^n_x$, $F: G \to \mathbb{R}^n_x$ - непр. диффер. отображение с якобианом $\mathcal{J}_F \neq 0$, а функция $f$ непр. на мн-ве $\overline{F(X)}$, то:
+% \begin{itemize}
+% \item Взаимно однозначно в $D$.
+% \item Непр. дифф. в $D$.
+% \item якобиана $\mathcal{J}_F (x_1, \ldots, x_n) \neq 0$ в $D$.
+% \end{itemize}
+то: $\int_{\overline{F(x)}}b(y)dy = \int_{\overline{X}}b(F(x)|\mathcal{J}_F (x)| dx$.
 $\int_{\phi(a)}^{\phi(b)}b(y)dy = \{ y = \phi(x) \} = \int_a^b b(\phi(x)) \phi'(x) dx$
 \end{Th}
 
-Теорема 2.(следует из 1)
+Теорема 2.
 \begin{Th}
-Пусть $F: D \to D^*$: 
+Пусть $F: G \subset \mathbb{R}^n_x \to \mathbb{R}^n_y$:
 \begin{itemize}
-\item Взаимно однозначно в $D$.
-\item Непр. дифф. в $D$.
-\item $\mathcal{J}_F (x_1, \ldots, x_n) \neq 0$ в $D$.
-\item F и $\mathcal{J}_F$ непр. продолжены на $\overline{X}$.
+\item Взаимно однозначно.
+\item Непр. дифф.
+\item якобиана $\mathcal{J}_F \neq 0 в G$.
+\item F и $\mathcal{J}_F$ непр. продолжены на $\overline{G}$.
+\item f непр. непрерывна на $G* := F(G)$ и непр. продолжаема на $\overline{G*}$
 \end{itemize}
-Пусть $b: F(x) \to \mathbb{R}$ непр на $x$ и непр. прордолжена на $\overline{F(x)}$. Тогда имеет место (1).
+Тогда $\int_{G*}f(y)dy = \int_{G}f(F(x))|\mathbb{J}_F(x)|dx$
 \end{Th}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -239,7 +221,7 @@ $\int_G b(x)dx$ - сходится, если $\exists \mathcal{I} = \lim_{m \to 
 
 \subsection{9. Криволинейный интеграл 1-го рода (определение, свойства)}
 \begin{Def}
-Пусть - $\mathcal{L} = \{M(s): 0 \leq s \leq S\}$, где $M(s) = (x(s), y(s), z(s))$ - уравнение линии.; $b(x, y, z) $ - ф-я. Тогда $\int_\mathcal{L} bds := \int_0^S b(x(s), y(s), z(s))ds$ - криволинейный интеграл 1-го рода, а $\mathcal{L}$ - путь интегрирования. 
+Пусть - $\mathcal{L} = \{M(s): 0 \leq s \leq S\}$, где $M(s) = (x(s), y(s), z(s))$ - уравнение линии.; $b(x, y, z) $ - ф-я. Тогда $\int_\mathcal{L} bds := \int_0^S b(x(s), y(s), z(s))ds$ - криволинейный интеграл 1-го рода, а $\mathcal{L}$ - путь интегрирования.
 \end{Def}
 Св-ва:
 \begin{itemize}
@@ -287,7 +269,7 @@ $\int_G b(x)dx$ - сходится, если $\exists \mathcal{I} = \lim_{m \to 
 \begin{Def}
 Если на поверхн. $\mathbb{S}$ можно задать непрерывное поле нормали $\overline{\delta}(u, v)$, то такую поверхность называют ориентированной, а само такое поле - ориентацией.
 \end{Def}
-Площадь поверхности $\mathbb{S}$ можно вычислить по формуле Грина: $S(\mathbb{S}) = \frac{1}{2}\int_{\delta \mathbb{S}}xdy-ydx$. 
+Площадь поверхности $\mathbb{S}$ можно вычислить по формуле Грина: $S(\mathbb{S}) = \frac{1}{2}\int_{\delta \mathbb{S}}xdy-ydx$.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -335,7 +317,7 @@ div $\overline{a}(x, y, z) = \nabla \overline{a}(x, y, z) = \frac{\partial a}{\p
 
 Ротор
 \begin{Def}
-Пусть $\overline{a}(x, y, z) = P(x, y, z) + Q(x, y, z) + R(x, y, z)$, тогда rot $\overline{a}(x, y, z) = \nabla \times \overline{a}(x, y, z) = 
+Пусть $\overline{a}(x, y, z) = P(x, y, z) + Q(x, y, z) + R(x, y, z)$, тогда rot $\overline{a}(x, y, z) = \nabla \times \overline{a}(x, y, z) =
 \begin{vmatrix}
 i& j& k\\
 \frac{\partial}{\partial x}& \frac{\partial}{\partial y}& \frac{\partial}{\partial z}\\
@@ -399,7 +381,7 @@ $S_n = S_{n-1} + a_n \Rightarrow a_n = S_n - S_{n-1}; \lim_{n \to \infty} a_n = 
 \begin{Th}
 Гармонический ряд $\sum_{n=1}^\infty \frac{1}{n}$ - расходится.
 \begin{Proof}
-По критерию коши, для сходимости этого ряда необходимо и достаточно: 
+По критерию коши, для сходимости этого ряда необходимо и достаточно:
 $\forall \varepsilon >0, \exists N_{\varepsilon },\forall n>N_{\varepsilon },\forall p > 0:\left | \frac{1}{n+1}+\frac{1}{n+2}+\cdots +\frac{1}{n+p} \right |<\varepsilon$. Возьмем $\varepsilon = \frac{1}{2}; p = n$. Тогда: $\left | \frac{1}{n+1}+\frac{1}{n+2}+\cdots +\frac{1}{n+p} \right |=\left | \frac{1}{n+1}+\frac{1}{n+2}+\cdots +\frac{1}{2n} \right |> \left | \frac{1}{2n}+\frac{1}{2n}+\cdots +\frac{1}{2n} \right |=\frac{1}{2}=\varepsilon$. Критерий не выполняется, следовательно ряд расходится.
 \end{Proof}
 \end{Th}
@@ -420,7 +402,7 @@ $S_n^{(A)} \leq S_n^{(B)}$ следует из усл. $0\leq a_{n}\leq b_{n}$. 
 \begin{Th}
 Пусть даны два ряда с неот. членами: $\sum\limits_{n=1}^{\infty} a_{n}=a_{1}+a_{2}+...+a_{n}+...    (A)$; $\sum\limits_{n=1}^{\infty} b_{n}=b_{1}+b_{2}+...+b_{n}+...    (B)$; Если существует предел: $\lim\limits_{n\rightarrow \infty } \frac{a_{n}}{b_{n}}=K      0<K< +\infty$, тогда ряды (A) и (B) сходятся или расходятся одновременно.
 \begin{Proof}
-Докажем для сходимости в одну сторону: 
+Докажем для сходимости в одну сторону:
 Пусть ряд (В) сходится. Из опр. предела: $\forall \varepsilon >0 \exists N_{\varepsilon }:\forall n>N_{\varepsilon }\left | \frac{a_{n}}{b_{n}}-K \right |<\varepsilon \Leftrightarrow K-\varepsilon <\frac{a_{n}}{b_{n}}<K+\varepsilon$. Из неравенства получим: $a_{n}<b_{n}(K+\varepsilon )$.Ряд $\sum_{n=1}^{\infty} b_{n}(K+\varepsilon )$ сходится, так как это ряд полученный умножением членов ряда (B) на постоянное число $K+\varepsilon$. Тогда по признаку сравнения ряд (A) сходится.
 \end{Proof}
 \end{Th}
@@ -437,8 +419,8 @@ a_{n}>0$
 \begin{Proof}
 Рассм. нерав. $\frac{a_{n+1}}{a_{n}}\leq q$ для n=1 и n=2.
 
-$n=1:\frac{a_{2}}{a_{1}}\leq q\Leftrightarrow a_{2}\leq q*a_{1}$; 
-$n=2:\frac{a_{3}}{a_{2}}\leq q\Leftrightarrow a_{3}\leq q*a_{2}\leq q^{2}*a_{1}$; 
+$n=1:\frac{a_{2}}{a_{1}}\leq q\Leftrightarrow a_{2}\leq q*a_{1}$;
+$n=2:\frac{a_{3}}{a_{2}}\leq q\Leftrightarrow a_{3}\leq q*a_{2}\leq q^{2}*a_{1}$;
 След. $\forall n$ будет справ. нерав. $a_{n}\leq q^{n-1}*a_{1}$. При этом ряд $\sum_{n=1}^{\infty} q^{n-1}*a_{1}$ явл. сход., значит по признаку сравнения ряд $\sum_{n=1}^{\infty} a_{n}$ тоже сход.
 Если $frac{a_{n+1}}{a_{n}}\geq 1$, то справ. нерав. $a_{n+1}\geq a_{n}>0$, что против. необх. усл. сходимости ряда $(\lim_{n\rightarrow \infty }a_{n}=0)$. Значит ряд $\sum_{n=1}^{\infty} a_{n}$ расходится.
 \end{Proof}
@@ -450,7 +432,7 @@ $n=2:\frac{a_{3}}{a_{2}}\leq q\Leftrightarrow a_{3}\leq q*a_{2}\leq q^{2}*a_{1}$
 \begin{Th}
 Пусть дан ряд с неотрицательными слагаемыми:
 $\sum\limits_{n=1}^{\infty} a_{n}=a_{1}+a_{2}+...+a_{n}+...
-a_{n}\geq 0$; 
+a_{n}\geq 0$;
 Если начиная с номера $n_{0}\epsilon \mathbb{N} \forall n>n_{0}$ вып. нерав. $\sqrt[n]{a_{n}}\leq q<1 q\epsilon \mathbb{R}$, то ряд сход.
 Если $\exists n_{0}\epsilon \mathbb{N}:\forall n>n_{0} \sqrt[n]{a_{n}}\geq 1$, то ряд расход.
 \begin{Proof}
@@ -558,7 +540,7 @@ $u_{1}-u_2+u_3-u_4+...+(-1)^{n-1}u_n+...(*)$
 
 \subsection{32. Теорема о непрерывности суммы равномерно сходящегося ряда (без доказательства).}
 \begin{Th}
-Пусть все члены функ. ряда $u_1(x) + u_2(x) + \ldots + u_n(x) + \ldots$ определены и непрерывны на отрезке $[a,b]$, а сам ряд равномерно сходится на этом отрезке. Тогда сумма ряда $S(x)$ будет непрерывной функцией на этом сегменте; 
+Пусть все члены функ. ряда $u_1(x) + u_2(x) + \ldots + u_n(x) + \ldots$ определены и непрерывны на отрезке $[a,b]$, а сам ряд равномерно сходится на этом отрезке. Тогда сумма ряда $S(x)$ будет непрерывной функцией на этом сегменте;
 \end{Th}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
