@@ -88,26 +88,17 @@
  \begin{center}
   \Large{\textbf{Шпоры по математическому анализу.}} \\
  \end{center}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \subsection{1. Разбиения множеств в $ \mathbb{R}^n $ (определение, свойства)}
  \begin{Def}
-
   Разбиением $\bf{\tau}$ мн-ва $\mathcal{S} \subseteq \mathbb{R}^n$ назыв. семейство мн-в $\mathcal{S}_\alpha$, таких что:
   \begin{itemize}
-
    \item $\forall \alpha, \beta : \mu(\mathcal{S}_\alpha \cap \mathcal{S}_\beta) = 0$, где $\mu$ - мера Жордана.
-
    \item $\bigcup_{\tau} \mathcal{S}_\alpha = \mathcal{S}$
-
          Обознач. : $\{\tau_k\}, \tau_k = \{ \mathcal{S}_{k, 1}, \mathcal{S}_{k, 2}, \ldots, \mathcal{S}_{k, j_k} \}$
-
   \end{itemize}
-
  \end{Def}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{2. Измеримые множества в $\mathbb{R}^n$ (определение, критерий)}
  Определение
  \begin{Def}
@@ -117,9 +108,7 @@
  \begin{Th}
   Мн-во $\mathcal{S} \subset \mathbb{R}^n$ измеримо $\Leftrightarrow$ $\mathcal{S}$ - огранич. и $\exists \mu(\delta\mathcal{S}) = 0$.
  \end{Th}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{3. Интегральные суммы и суммы Дарбу в $\mathbb{R}^n$}
  \begin{Def}
   Пусть $b: \mathcal{S} \subseteq \mathbb{R}^n \to \mathbb{R}$, тогда величина $\mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k}) = \sum_{j = 1}^{j_k} b(\xi_{k, j})\mu(\mathcal{S}_{k,j})$ называется интегральной суммой(Римана) для функции $b$, соотв. разбиению $\tau_k$.
@@ -127,9 +116,7 @@
  \begin{Def}
   Обозначим $\tau = \{\mathcal{S}_k\}_{k=1}^\infty$; $\mathcal{M}_k = sup_{x \in \mathcal{S}_k} b(x)$; $m_k = inf_{x \in \mathcal{S}_k} b(x)$; Тогда величины: $\overline{\overline{\mathbb{S}}}(\tau) = \sum_{k = 1}^n \mathcal{M}_k \mu(\mathcal{S}_k)$ и $\underline{\underline{\mathbb{S}}}(\tau) = \sum_{k=1}^n m_k \mu(\mathcal{S}_k)$ называют соответственно верхней  нижней суммой Дарбу для ф-ии $b(x)$, соотв. разбиению $\tau$.
  \end{Def}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{4. Кратный интеграл Римана(определение, свойства)}
  \begin{Def}
   Если $\exists \mathcal{I} = \lim_{k \to \infty} \mathcal{I}(b, \tau_k, \xi_{k,1}, \xi_{k,2}, \ldots, \xi_{k, j_k})$, не зависящий:
@@ -140,7 +127,6 @@
   То ф-ю $b$ называютинтегрируемой по Риману на мн-ве $\mathcal{S}$, а величину $\mathcal{I}$ назыв. интегралом Римана от ф-ии $b$ по мн-ву $\mathcal{S}$.
   Обозн. : $\int_{\mathcal{S}}b(x)dx$ или $\int\int\ldots\int b(x_1, \ldots, x_n) dx_1\ldots dx_n$.
  \end{Def}
-
  Свойства кратного интеграла Римана:
  \begin{itemize}
   \item 1) Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо. Тогда $\int_{\mathcal{S}}dx = \mu(\mathcal{S})$.
@@ -155,7 +141,6 @@
   \item 10) Теорема о среднем.  Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримo; $b$ - непр. и огр. в $\mathcal{S}$; Тогда $\exists x_0 \in \mathcal{S}: \int_\mathcal{S} b(x_0)dx = b(x_0)\mu(\mathcal{S}) = \int_{\mathcal{S}} b(x)dx$.
  \end{itemize}
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{5. Критерии интегрируемости ф-й в $\mathbb{R}^n$}
  Критерий Дарбу.
  \begin{Th}
@@ -165,19 +150,13 @@
  \begin{Th}
   Пусть $\mathcal{S} \subset \mathbb{R}^n$ - измеримо; $b \in \mathcal{R}(\mathcal{S})$ - огр.; $\exists \mathcal{S}_1, \mathcal{S}_2 \subset \mathcal{S}: \mathcal{S}_1 \cap \mathcal{S}_2 = \phi; \mathcal{S}_1 \cup \mathcal{S}_2 = \mathcal{S}$; $b$ - непрерывно на $\mathcal{S}_1, \mu(\mathcal{S}_2) = 0$. Тогда и только тогда $b \in \mathcal{R}(\mathcal{S})$.
  \end{Th}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{6. Сведение кратного интеграла к повторному}
  \begin{Th}
   Пусть $\mathcal{S} - $ стандартная область относительно $O_y$; $b: \mathcal{S} \to \mathbb{R}$ - непр; Тогда $(1) \int\int_\mathcal{S}b(x,y)dxdy =  \int_a^b dx (2)\int_{\phi(x)}^{\psi(x)}b(x, y)dy$, где (1) - существует по крит. Лебега, а (2) - $F(x)$ - непр.
  \end{Th}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{7. Замена переменных в кратном интеграле (2 теоремы)}
-
- Теорема 1.
  \begin{Th}
   Если X измеримое мн-во со своим замыканием $G: \overline{X} \subset G \subset \mathbb{R}^n_x$, $F: G \to \mathbb{R}^n_x$ - непр. диффер. отображение с якобианом $\mathcal{J}_F \neq 0$, а функция $f$ непр. на мн-ве $\overline{F(X)}$, то:
   % \begin{itemize}
@@ -188,8 +167,6 @@
   то: $\int_{\overline{F(x)}}b(y)dy = \int_{\overline{X}}b(F(x)|\mathcal{J}_F (x)| dx$.
   $\int_{\phi(a)}^{\phi(b)}b(y)dy = \{ y = \phi(x) \} = \int_a^b b(\phi(x)) \phi'(x) dx$
  \end{Th}
-
- Теорема 2.
  \begin{Th}
   Пусть $F: G \subset \mathbb{R}^n_x \to \mathbb{R}^n_y$:
   \begin{itemize}
@@ -201,9 +178,14 @@
   \end{itemize}
   Тогда $\int_{G*}f(y)dy = \int_{G}f(F(x))|\mathbb{J}_F(x)|dx$
  \end{Th}
-
+ \begin{Proof}
+  Так как $G*$ измеримо, то $\overline{G*}$ - измеримый компакт, и продолжение $f*$ ф-ии $f$ интегр. на нём в силу непр., а след., и $f$ интегр на $G*$. Аналог. док. интегр. $f(F(x))|\mathbb{J}_F(x)|$ на $G$.
+  Представим $G$ в виде объед. монотонной послед. измеримых открытых мн-ств $G = \bigcup_{k=1}^{n} G_k$, где $\overline{G_k} \in G_{k+1}, k \in \mathbb{N}$. Применяя предыдущую теор. получим $\int_{F(G_k)}f(y)dy = \int_{G_k}f(F(x))|\mathbb{J}_F(x)|dx$
+  В силу полной аддаптивности интеграла имеем $\lim_{k \to \infty} \int_{G_k}f(F(x))|\mathbb{J}_F(x)|dx = \int_{G}f(F(x))|\mathbb{J}_F(x)|dx$.
+  Так как мн-ва $F(G_k)$ также открыты и $G* = \bigcup_{k=1}^{n} F(G_k), \overline{F(G_k)} \in F(G_{k+1}), k \in \mathbb(N)$, то аналог. получаем $\lim_{k\to\infty} \int_{F(G_k)} f(y)dy = \int_{G*} f(y)dy$.
+  Переходя к пределу при $k\to\infty$ в 1 равенстве получаем равенство теоремы.
+ \end{Proof}
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{8. Несобственные кратные интегралы (определение, критерий сходимости, признак сравнения)}
  \begin{Def}
   Пусть $G$ - область в $\mathbb{R}^n$; $b: G \to \mathbb{R}$; b - интегрируема на $\mathcal{X}$; $\forall \mathcal{X} \subset G$ - комп.; Тогда $\int_G b(x)dx$ - несобственный кратный интеграл.
@@ -216,9 +198,7 @@
  \begin{Th}
   Пусть $b, g \geq 0$ - удовл. опред. несобств. инт.; $b \geq g$; $\exists \int_G bdx$ - сходится. Тогда $\int_G gdx$ - тоже сходится.
  \end{Th}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{9. Криволинейный интеграл 1-го рода (определение, свойства)}
  \begin{Def}
   Пусть - $\mathcal{L} = \{M(s): 0 \leq s \leq S\}$, где $M(s) = (x(s), y(s), z(s))$ - уравнение линии.; $b(x, y, z) $ - ф-я. Тогда $\int_\mathcal{L} bds := \int_0^S b(x(s), y(s), z(s))ds$ - криволинейный интеграл 1-го рода, а $\mathcal{L}$ - путь интегрирования.
@@ -229,9 +209,7 @@
   \item $\int_\mathcal{L}bds$ не зависит от направления обхода.
   \item Пусть $\phi, \psi, \xi$ - непр. дифф на $[a, b]$; $\exists [\phi'(t)]^2 + [\psi'(t)]^2 + [\xi'(t)]^2 \neq 0 \forall t \in [a, b]$; Тогда $\int_\mathcal{L}bds = \int_a^b b(\phi(t), \psi(t), \xi(t))\sqrt{[\phi'(t)]^2 + [\psi'(t)]^2 + [\xi'(t)]^2}dt$
  \end{itemize}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{10. Криволинейный интеграл 2-го рода (определение, свойства)}
  \begin{Def}
   Пусть $L = AB$ - гладкая ориентированная кривая; $\overline{r}(s) = (x(s), y(s), z(s)), 0 \leq s \leq S$ - её векторное представление, $A = r(0), B = r(S)$; $\overline{a}(x,y,z) = (P(x, y, z), Q(x, y, z), R(x, y, z))$ - вектор функция. Тогда $\int_{AB}\overline{a}d\overline{r} = \int_{AB}\overline{a}\overline{r}ds$ - криволинейный интеграл 2-го рода.
@@ -242,24 +220,18 @@
   \item При изменении ориентации кривой интеграл меняет знак.
   \item Пусть $x(t), y(t), z(t), a \leq t \leq b$ - векторное представление гладкой кривой L. Тогда $\int_L\overline{a}d\overline{r} = \int_a^b\overline{a}   \overline{r}dt$.
  \end{itemize}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{11. Условие независимости криволинейного интеграла от пути интегрирования}
  \begin{Th}
   Пусть $P(x,y), Q(x,y) : D \to \mathbb{R}$ - непрерывны, и $M_0M$ - гладкая дуга в $D, D \subset \mathbb{R}^2$. Тогда криволинейный интеграл $\oint_{M_0M} P(x,y)dx + Q(x,y)dy$ не зависит от пути интегрирования тогда и только тогда, когда $P(x, y)dx + Q(x,y)dy$ есть полный дифференциал функции $U(x, y)$ а равно $\frac{\partial Q}{\partial x} = \frac{\partial P}{\partial y}$.
  \end{Th}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{12. Формула Грина и её следствие}
  \begin{Th}
   Пусть $G$ - элемент. область; $P, Q : G \to \mathbb{R}$; $P, Q, \frac{\partial P}{\partial x}, \frac{\partial Q}{\partial y}$ - непрерывны в $G$. Тогда для крив. инт. 2-го рода вида $\oint Pdx + Qdy$ имеет место формула Грина: $\oint_G Pdx+Qdy = \int\int_G( \frac{\partial P}{\partial x} - \frac{\partial Q}{\partial y})dxdy$.
  \end{Th}
  Следствие: Пусть $G$ - обл. огр. простым замкн. контуром, кот. можно разбить на конечн. число элем. областей. $P, Q: G \to \mathbb{R}; P, Q, \frac{\partial P}{\partial x}, \frac{\partial Q}{\partial y}$ - непрерывны в $G$. Тогда имеет место формула Грина.
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{13. Поверхности и их ориентация. Площадь поверхности}
  Поверхность.
  \begin{Def}
@@ -270,51 +242,36 @@
   Если на поверхн. $\mathbb{S}$ можно задать непрерывное поле нормали $\overline{\delta}(u, v)$, то такую поверхность называют ориентированной, а само такое поле - ориентацией.
  \end{Def}
  Площадь поверхности $\mathbb{S}$ можно вычислить по формуле Грина: $S(\mathbb{S}) = \frac{1}{2}\int_{\delta \mathbb{S}}xdy-ydx$.
-
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{14. Поверхностный интеграл 1-го рода}
  \begin{Def}
   Поверхностным интегралом первого рода от ф-ии $b$ по поверхности $\mathbb{S}$ называется интеграл вида: $\int\int_{(\mathbb{S})}bds = \int\int_D b(x(u,v), y(u,v), z(u,v))*\sqrt{g_{11}(u,v)g_{22}(u,v) - g_{12}^2}dvdu$, где $g_{11}(u,v) = |\overline{r}_u|^2, g_{22}(u,v) = |\overline{r}_v|^2, g_{12} = |\overline{r}_u * \overline{r}_v|$.
  \end{Def}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{15. Поверхностный интеграл 2-го рода}
  \begin{Def}
   Поверхностным интегралом второго рода называется интеграл вида: $\int\int_{\mathbb{S}+}\overline{a\delta}ds = \int\int_{\mathbb{S}+}(Pcos\alpha + Qcos\beta + Rcos\gamma)ds = \int\int_{\mathbb{S}+}Pdydz+Qdxdz+Rdxdy$.
  \end{Def}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{16. Формула Гаусса-Остроградского}
  \begin{Th}
   Пусть $\mathcal{S} \subset \mathbb{R}^3$ - область, элементарная относительно $Ox, Oy, Oz$; $\mathbb{S} = \delta\mathcal{S}$ - замкнутая кусочно-гладкая поверхность;$\mathcal{S} = (x,y) \in D, \phi(x, y) \leq z \leq \psi(x, y)$, где $\phi, \psi: D \to \mathbb{R}$ - непрерывн. ф-ии и $\forall (x,y) \in D: \phi(x, y) \leq \psi(x, y)$ - элем. обл. отн. оси $Oz$. Тогда $\int\int_{\mathbb{S}+}(Pcos\alpha+Qcos\beta+Rcos\gamma)dS = \int\int\int_\mathcal{S}div\overline{a}dxdydz$, где $div\overline{a} = \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}$.
  \end{Th}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{17. Формула Стокса}
  \begin{Th}
   Пусть $\overline{a} \in C^1(s), b \in C^2(\overline{G})$. Тогда имеет место формула Стокса $\oint_{T+}\overline{a}ds = \int\int_{S}\overline{\delta}rot\overline{a}ds$.
  \end{Th}
-
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
  \subsection{18. Градиент, дивергенция, ротор}
  Градиент
  \begin{Def}
   $\nabla b(x,y,z) = $ grad $b(x, y, z) = $ $\{\frac{\partial b}{\partial x}, \frac{\partial b}{\partial y}, \frac{\partial b}{\partial z} \} = \frac{\partial b}{\partial x}i + \frac{\partial b}{\partial y}j + \frac{\partial b}{\partial y}k$ - градиент скалярного поля $b$.
  \end{Def}
-
  Дивергенция
  \begin{Def}
   div $\overline{a}(x, y, z) = \nabla \overline{a}(x, y, z) = \frac{\partial a}{\partial x} + \frac{\partial a}{\partial y} + \frac{\partial a}{\partial y}$ - дивергенция скалярного поля $\overline{a}$.
  \end{Def}
-
  Ротор
  \begin{Def}
   Пусть $\overline{a}(x, y, z) = P(x, y, z) + Q(x, y, z) + R(x, y, z)$, тогда rot $\overline{a}(x, y, z) = \nabla \times \overline{a}(x, y, z) =
@@ -325,11 +282,8 @@
    \end{vmatrix}
    = (\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z})i - (\frac{\partial R}{\partial x} - \frac{\partial P}{\partial z})j + (\frac{\partial Q}{\partial x} + \frac{\partial P}{\partial y})k$ - ротор (вихрь) векторного поля $\overline{a}$
  \end{Def}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{19.Потенциальные и Соленоидальные поля (определения, условия)}
-
  Соленоидальные:
  \begin{Def}
   Вект. поле $a: G \to \mathbb{R}^3$ наз. соленоидальным, если поток этого поля через любую кусочно-гладкую пов-сть. $S$, ограничивающую область $G' \subset G$ равен 0.
@@ -342,7 +296,6 @@
    Доказательство достаточности следует из ф-лы Гаусса-Остроградского.
   \end{Proof}
  \end{Th}
-
  Потенциальные:
  \begin{Def}
   Поле $\overline{a}(x, y, z) = (P(x, y, z), Q(x, y, z), R(x, y, z)), \overline{a} : D \in \mathbb{R}^3 \to \mathbb{R}^3$ назыв. потенциальным если $\exists U: D \to \mathbb{R}$ - потенциальная ф-я, такая что $\nabla U(x, y, z) = \overline{a}(x, y, z)$, т.е $\frac{\partial U}{\partial x} = P(x, y, z)$ и т.д
@@ -359,9 +312,7 @@
    Достаточность следует из формулы Стокса.
   \end{Proof}
  \end{Th}
-
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
  \subsection{20. Числовой ряд, его сумма, сходимость, остаток.}
  Пусть: (1)$\{a_n\}_{n = 1}^\infty$ - числовая последовательность; $S_1 = a_1; S_2 = a_1+a_2; \ldots; S_n = a_1 + \ldots + a_n; (2) \{S_n\}_{n=1}^\infty$. Тогда пара числовых последовательностей (1) и (2) наз. числовым рядом $\sum_{n=1}^\infty a_n$. При том $S_n$ - наз. част. суммой. Если $S = \lim_{n \to \infty}S_n \in \mathbb{R}$ то говорят, что ряд сходится(иначе расходится. $S$ - называют суммой ряда. Ряд вида $\sum_{n = n_0 + 1}^\infty a_n$ называют остатком ряда $\sum_{n=1}^\infty a_n$, $\forall n_0 \in \mathbb{N}$.
 
