@@ -1,0 +1,394 @@
+\documentclass[unicode,10pt, landscape]{article}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage[russian]{babel}
+\usepackage[utf8]{inputenc}
+
+% To make this come out properly in landscape mode, do one of the following
+% 1.
+%  pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+
+% If you're reading this, be prepared for confusion.  Making this was
+% a learning experience for me, and it shows.  Much of the placement
+% was hacked in; if you make it better, let me know...
+
+
+% 2008-04
+% Changed page margin code to use the geometry package. Also added code for
+% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
+% for the suggestions.
+
+% 2006-08
+% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
+
+
+% To Do:
+% \listoffigures \listoftables
+% \setcounter{secnumdepth}{0}
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\newenvironment{Proof} % имя окружения
+{\par\noindent{\bf Док-во:}} % команды для \begin
+{\hfill$\scriptstyle\blacksquare$}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+%\begin{multicols}{1}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+\newtheorem{Def}{Опр.}
+\newtheorem{Prop}{Св-во.}
+\newtheorem{Th}{Теор.}
+
+\begin{center}
+     \Large{\textbf{Шпоры по Дифференциальным уравнениям.}} \\
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{1. Задача Коши для обыкновенного дифференциального уравнения нормального типа. Геометрический смысл решения дифференциального уравнения первого порядка.}
+\begin{Def}
+Уравнение нормального (разрешенного) типа - дифф. ур-е вида $y^{(n)} = f(x, y, y', \ldots, y^{(n-1)}).$
+Задача Коши для ур-я норм. типа: $\{y^{(n)} = f(x, y, y', \ldots, y^{(n-1)}); y(x_0) = y_0, \ldots, y^{(n-1)}(x_0) = y^{(n-1)}_o\}$
+Согласно эврист. теореме, если все ф-ии непр. дифф. то $\exists U(x_0)$ где соотв. задача коши имеет единств. решение.
+\end{Def}
+Геом. смысл.
+\begin{Def}
+Пусть на плоскости в области $G \subset \mathbb{R}$ задана ф-я $f(x,y)$. $y' = tg\alpha$, где $\alpha$ - угол наклона кривой, проходящей через точку (x,y) $\Rightarrow f(x,y) $ задает поле направлений, т.е в кажд. точке определено направление касательной к решению.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{2. Уравнение с разделяющимися переменными. Схема решения. Примеры.}
+\begin{Def}
+Уравн. с разд. перемм.  - уравнение вида $y' = f(x)\cdot g(y)$, где $f(x), g(y)$ - непрерывны на некотором интервале.
+\end{Def}
+{\bf Схема решения}: 1) рассм. ур-е $g(y) = 0$, проверим полученные корни на то, могут ли они быть решением. Если да - добавим в систему решений.
+2)Пусть $g(y) \neq 0 \Rightarrow g(y) \neq 0$  в некоторой окрестности(в силу, непрерывн.) точки y $\Rightarrow$ имеет смысл $\frac{y'}{g(y)} = f(x) \Rightarrow$ (по опр. первобр.) $\Rightarrow \int\frac{y'dy}{g(y)} = \int f(x)dx + C \Leftrightarrow \int\frac{dy}{g(y)}=\int f(x)dx + C \Rightarrow F(y) = H(x) + C \Rightarrow y = F^{-1}(H(x) + C)$. Пример: $y' = y\cdot (x^2 + e^x)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{3. Уравнение первого порядка в дифференциалах. Однородные дифференциальные уравнения. Схема решения.}
+\begin{Def}
+Уравнение первого порядка в дифференциалах - ур-е вида $M(x,y)dx + N(x,y)dy = 0$, где $[y_x' = -\frac{M}{N}; x_y' = -\frac{N}{M}]$.
+Однородное уравнение - уравнение вида $\frac{dy}{dx} = f(\frac{y}{x})$, притом оно не меняется при замене $x \to kx, y \to ky$.
+\end{Def}
+ {\bf Схема решения}:
+1)Сделаем замену $y(x) = xz(x)$. $\Rightarrow \frac{dz}{dx} = \frac{f(z) - z}{x}$. Полученое ур-е - с разделяющимися переменными. $\Rightarrow \int_{z_0}^z\frac{dz}{f(z) - z} = ln|x| + C \Rightarrow $ находим x как ф-ю z: $x = Cexp(\int_{z_0}^\frac{y}{x}\frac{dz}{f(z)-z})$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{4. Линейные дифференциальные уравнения первого порядка. Структура общего решения. Метод вариации постоянных для уравнения первого порядка.}
+\begin{Def}
+Линейное дифф. ур-е первого порядка - уравнение вида: $y' = a(x)y + b(x)$, где $a(x), b(x)$ - непр. на некотором интервале.
+\end{Def}
+{\bf Структура общего решения}: $Ly = b; y = y_0 + y_{partial}$, где $y_0$ - решение однородного уравнения $Ly_0 = 0 \Leftrightarrow y' = a(x)y$. В общем случае $y_0(x) = C\cdot exp(\int_{x_0}^xa(\xi)d\xi)$. Частное решение можно найти с помощью {\bf метода вариации постоянных}: 1) Заменим $C \to C(x): y_{partial}(x) = C(x)\cdot exp(\int_{x_0}^xa(\xi)d\xi)$; 2) Подставим в неоднородное: $C'(x) = b(x)exp(-\int_{x_0}^x a(\xi)d\xi) \Rightarrow C(x) = C + \int_{x_0}^{x} b(\xi)exp(-\int_{x_0}^\xi a(\nu)d\nu)d\xi$;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{5. Уравнения в полных дифференциалах. Структура общего решения. Интегрирующий множитель. Уравнение Бернулли.}
+\begin{Def}
+Уравнение в полных дифф-ах. - ур-е вида $P(x,y)dx+Q(x,y)dy = 0$, где $P(x,y)dx + Q(x,y)dy = dF(x,y)$, т.е пристутствует полный дифференциал нек-й ф-ии. Притом $F(x,y) = C$ - постоянная.
+\end{Def}
+{\bf Структура общего решения}: u(x,y) = C, где u(x,u) = $\int P(x,y)dx + \phi(y), \phi'(y) = Q(x,y) - \frac{\partial}{\partial y}(\int P(x, y)dx)$.
+{\bf Интегрирующий множитель}: такой $m(x,y)$ что $m(x,y)M(x,y)dx + m(x,y)Q(x,y)dy = 0$ - ур-е в полных дифференциалах. Притом таковой множитель существует для любого линейного одн. дифф. ур-я.;
+{\bf Уравнение Бернулли}: ур-е вида $y'+a(x)y = b(x)y^n, n \neq 1$. Подстановка $z = y^{1-n}$ сводит ур-е к линейному: $y' + (1-n)a(x)z = (1-n)b(x)$;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{6. Методы понижения порядка уравнений для линейных и нелинейных уравнений.}
+1)Если в уравнение не входит $y$: $F(x, y^{(k)}, \ldots, y^{(n)}) = 0$. Тогда $y^{(k)} = z, y^{(k+1)} = z', \ldots$. Таким образом порядок ур-я понизился к единице.
+2) Если в ур-е не входит независимая переменная: $F(y, y', \ldots) = 0$. Тогда заменим $y' = p$. Получим $y' = p, y'' = p' = p'y' = p'p$. Далее находим общее решение ур-я и решение для $y' = p(y)$;
+3)Однородное ур-е по ф-ии и её производным: Замена $y' = y\cdot z(x)$, где $z(x)$ - новая изв. ф-я. Соотв: $y' = yz, y'' = yzz + yz' = yz^2 + yz'$. Порядок понижается на единицу. Далее ур-е решается отн. z. После решается ур-е $y' = yz$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{7. Нормальный вид системы дифференциальных уравнений. Векторная форма записи. Определение решения системы дифференциальных уравнений. Задача Коши для нормальной системы.}
+\begin{Def}
+Система ДУ нормального вида - система вида $\frac{dx_i}{dt} = f_i(y, x_1, x_2, \ldots, x_n), i = \overline{1,n}$. Притом число неизв. ф-й равно числу уравнений. Векторная запись: $\overline{x} = (x_1, \ldots, x_n); \overline{f} = (f_1, \ldots, f_n); \frac{d\overline{x}}{dt} = \overline{f}(t, \overline{x})$.
+\end{Def}
+\begin{Def}
+Решение системы ДУ - совокупность n ф-й: $x_1(t), \ldots, x_n(t)$, определенная на некотором интервале и обращающяя систему в тождество.
+\end{Def}
+\begin{Def}
+Задача Коши для норма. системы ДУ - совокупность системы ДУ и начальных условий, которым должны соотв. неизвестные ф-ии: $x_1(t_0) = x_1^0, \ldots, x_n(t_0) = x_n^0$;
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{8. Свойства вектор-функций. Оценка интеграла для вектор-функций. Оценка нормы матрицы.}
+{\bf Свойства:}
+1) Действия с в-ф-ями: $\overline{x} + \overline{y}; \overline{x} - \overline{y}; \alpha\overline{x}; (\overline{x},\overline{y}) = x_1y_1 + \ldots + x_ny_n$;
+2) Модуль: $|\overline{x}| = \sqrt{x_1^2 + \ldots + x_n^2}; |\overline{x} + \overline{y}| = |\overline{x}| + |\overline{y}|$;
+3) Неравенство Коши-Буняковского: $|x_1y_1 + \ldots + x_ny_n| \leq [|\overline{x}|][\overline{y}]$;
+4) Предел: 1)$lim_{t \to a} \overline{x}(t) = \overline{x_0} \Leftrightarrow \forall \varepsilon > 0 \exists \delta > 0 : \forall t : |t-a| < \delta \Rightarrow |\overline{x}(t) - x_0| < \varepsilon$; 2)$lim_{t \to a} = \overline{x_0} = (x_{1,0}, \ldots, x_{n,0})$, где $x_{i, o} = lim_{t \to a}x_i(t), i = \overline{1,n}$;
+5) Производная: $\frac{dx}{dt} = (\frac{dx_i}{dt}, \ldots, \frac{dx_n}{dt})$;
+{\bf Оценка интеграла:}
+\begin{Th}
+Если $\overline{y}(t)$ - непр. на [a,b], тогда: $|\int_a^b\overline{y}(t)dt| \leq \int_a^b|\overline{y}(t)|dt$;
+\begin{Proof}
+Пусть $b>a$. Интеграл слева есть предел инт. сумм: $|\sum\overline{y}(t_i^*)(t_i - t_{i-1})| \leq \sum|\overline{y}(t_i^*)|(t_i - t_{i-1})$. Переходя к пределу получим верное неравенство.
+\end{Proof}
+\end{Th}
+{\bf Оценка нормы матрицы:}
+\begin{Th}
+Пусть $A = (a_{i,j})_{i,j = \overline{1.n}}$ - матрица; $\overline{x} = (x_1, \ldots, x_n)$; $y = A\cdot\overline{x} = (y_1, \ldots, y_n); y_i = a_{i,1}x_1 + \ldots + a_{i,n}x_n$. Тогда $|A\cdot \overline{x}| \leq |A|\cdot|\overline{x}|$, где $|| A || = (\sum_{i,j = 1}^n |a_{i,j}|^2)$;
+\begin{Proof}
+(следует из нер. К-Буш.): $|\overline{y_i}|^2 = |a_{i,1}x_1 + \ldots + a_{i,n}x_n|^2 \leq (|a_{i,1}|^2 + \ldots + |a_{i,n}|^2)\cdot[|x_1|^2 + \ldots + |x_n|^2]$; $\sum_{i=1}^n|\overline{y_i}|^2 = |A\cdot \overline{x}|^2 = |y|^2 \leq (\sum_{i,j}|a_{i,j}|^2)\cdot(|x|^2)$;
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{9. Условия Липшица для вектор-функции. Достаточные условия для оценки Липшица.}
+{\bf Условие Липшица}
+\begin{Def}
+Ф-я $f(x,y): D \to \mathbb{R}$ удовлетворяет в $D$ условию Липшица по $y$, если существует такая постоянная $L$, что $\forall y_1, y_2, x \in D: |f(x,y_2) - f(x,y_1)| \leq L\cdot|y_2-y_1|$;
+\end{Def}
+{\bf Достаточное Условие}
+\begin{Th}
+Если в $D$ сущ. огран. произв. $\frac{\partial f}{\partial y}$, то ф-я $f(x,y)$ удовл. условию Липшица. 
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{10. Лемма о дифференцировании неравенства.}
+\begin{Th}
+Пусть $u(t) \geq 0; f(t) \geq 0; u(t),f(t) \in C[t_0, \infty]$. При этом для $t \geq t_0: u(t) \leq C + \int_{t_0}^tf(t_1)u(t_1)dt_1$, где $C$ - const - (1). Тогда при $t \geq t_0$ имеем оценку: $u(t) \leq C\cdot exp(\int_{t_0}^tf(t_1)dt_1$ - (2).
+\begin{Proof}
+Из (1) получим: $\frac{u(t)}{C + \int_{t_0}^tf(t_1)u(t_1)dt_1} \leq 1$ и $\frac{f(t)u(t)}{C + \int_{t_0}^tf(t_1)u(t_1)dt_1} \leq f(t)$ - (3). А так как $\frac {d}{dt}[c+\int _{t_{0}}^{t}f(t_{1})u(t_{1})dt_{1}]=f(t)u(t)$, то проинтегрировав (3) от $t_0$ до $t$, получим: $\ln [C+\int _{{t_{0}}}^{{t}}f(t_{1})u(t_{1})dt_{1} ]-\ln C\leq \int _{{t_{0}}}^{{t}}f(t_{1})dt_{1}$; Отсюда, используя неравенство (1), получаем $u(t)\leq c+\int _{t_{0}}^{t}f(t_{1})u(t_{1})dt_{1}\leq c\exp \int _{t_{0}}^{t}f(t_{1})dt_{1}$;
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{11. Формулировка теоремы о существовании и единственности решения системы дифференциальных уравнений нормального типа. Сведение задачи Коши к интегральному уравнению.}
+{\bf Формулировка теоремы:}
+\begin{Th}
+Пусть вектор ф-я $\overline{f}(t)$ и матрица-функ-я $A(t)$ непр. на отрезке $[a,b]$. Т. $t_0 \in [a,b]$. Тогда: 1) Решение задачи Коши $\{ \frac{d\overline{x}}{dt} = A(t)\cdot \overline{x}(t) + \overline{f}(t); \overline{x}(t_0) = \overline{x}_0\}$ существует на всем пром. $[a,b]$. 2) Решение данной задачи Коши единственно, т.е если $\overline{x}_1(t), \overline{x}_2(t)$ - решения, то $\overline{x}_1(t) = \overline{x}_2(t) \forall t \in [a,b]$.
+\end{Th}
+{\bf Сведение задачи Коши:}
+\begin{Th}
+Задача  Коши для ветор ф-ии равносильна веторному интегральному уравнению: $\overline{x}(t) = x^0 + \int_{t_0}^{t}\overline{f}(s,\overline{x}(s))ds$. А именно: 1) Любое решение задачи коши удовлетворяет соотв. интегральному ур-ю. 2) Любое решение задачи Коши, непрерывное на $(t_0-\delta; t_0+\delta)$ явл. решением соотв. интегрального уравнения.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{12. Метод последовательных приближений для интегрального уравнения.}
+\begin{Def}
+Пусть $M \subset B$, B - банахово пр-во. Оператор $A$, опр. на $M$, сжимает M если: 1)$A: M \to M$, т.е $\forall \phi in M: A\phi \in M$; 2) $\exists k; k \in (0, 1)$, такое, что: $||A(\phi_1) - A(\phi_2)|| \leq k||\phi_1 - \phi_2||$, для всяких $\phi_1, \phi_2 \in M$.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{13. Доказательство существования решения.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{14. Доказательство единственности решения.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{15. Существование и единственность решения задачи Коши для дифференциального уравнения n-го порядка.}
+\begin{Th}
+Задача коши для ДУ n-го порядка: $\{\frac{d^nx}{dt^n} = f(t, x, \frac{dx}{dt}, \ldots, \frac{d^{n-1}x}{dt^{n-1}}; x|_{t=t_0}=x_o^o; \frac{dx}{dt}|_{t=t_0} = x_1^o, \ldots, \frac{d^{n-1}x}{dt^{n-1}}|_{t=t_0} = x_{n-1}^o\}$. Теорема: пусть $f(t, y_0, y_1, \ldots, y_{n-1})$ - непр. вместе со всеми частн. произв. $\frac{\partial f}{\partial y_i}$, $0\leq i \leq n-1$ в  обл. $G \subset \mathbb{R}_{t,y}^{n+1}$, и пусть $(t_0, x_0, \ldots, x_{n-1}) \in G$. $\Rightarrow $ решение задачи существует и единственно.
+\begin{Proof}
+(для n=2): $\frac{d^2x}{dt^2} = f(t, x, \frac{dx}{dt}); x(t_0) = x_0; \frac{dx(t_0)}{dt} = x_1.$ Обозначим $x = y_0; \frac{dx}{dt} = y_1 \Rightarrow \{\{\frac{dy_0}{dt} = y_1; \frac{dy_1}{dt} = f(t, y_0, y_1)\}; \{y_0(t_0) = x_0; y_1(t_0)=x_1\}\}$ - (1) $\Rightarrow$ если сущ. и единст. решение задачи (1) то и существует и единственно решение $x = y_0$.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{16. Теорема о продолжении решения задачи Коши в замкнутой ограниченной области.}
+Решение $y(t)$ наз. продолжением реш. $x(t)$, если оно опр. на большем интервале $J \supset I$ и совпадает с $x(t)$ на $I$.
+\begin{Th}
+Пусть в обл. $G \subset \mathbb{R}_{t,x}^{n+1}$ вып. условие теоремы о св. задачи коши к инт. ур-ю. Тогда всякое решение этой системы продолжается вперед, назад, либо неогр., либо вплоть до границы $T$ и такое продолжение единственно.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{17. Теорема о продолжении решений на весь интервал.}
+\begin{Th}
+Пусть ф-я $f(t,y)$ - непр. на $(t;y) \in E$ и $y = y(t)$ - решение системы $y' = f(t,y)$ на некотором интервале $I$. Тогда ф-я $y(t)$ может быть продолжена(как решение) на интервал $J$, такой, что не существует такого интервала $J_1 \supset J$, на котором может существовать продолжение решения(т.е на максимальный интервал).
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{18. Уравнения, не разрешенные относительно старшей производной. Теорема о единственности решения для уравнения, не разрешенного относительно производной.}
+\begin{Def}
+Уравнение вида $F(x,y,y') = 0$ - (1), где $F$ - непрерывная ф-я, назыв. уравнением, не разрешенным относительно производной, если оно не приводится  к явному виду: $y' = f(x,y)$.
+\end{Def}
+{\bf Теор. о единственности решения:}
+\begin{Th}
+Пусть дано ур-е (1), не разр. отн. произв., в области $D$. $(x_0, y_0, y_0') \in D$ и в этой точке $F = 0, \frac{\partial F}{\partial y} \neq 0$. Тогда $\exists d>0:$ на интервале $[x_0 - d, x_0 + d]$ существует единств. решение ур-я (1), удовл. условиям $\{y(x_0) = y_0; y'(x_0) = y_0'\}$
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{19. Особые решения для неразрешенного уравнения. Дискриминантная кривая. Огибающая семейства кривых. Схема нахождения особых решений дифференциального уравнения.}
+\begin{Def}
+{\bf Особым решением} называется такое решение, в каждой точке которого его касается некоторое иное решение, отличное от рассм. в сколь угодно малой окрестности этой точки.
+\end{Def}
+\begin{Def}
+Если для нек-го неразрешенного ур-я $F(x, y, y') = 0, F \in C^1,$ в нек. точке $(x_0, y_0)$ нарушается единственность, то при нек. $y_0'$ вып. два условия: $\{F(x_0, y_0, y_0') = 0; \frac{\partial F}{\partial y_0'}(x_0, y_0, y_0') = 0\}$. Исключая $y_0'$ получим $\phi(x_0, y_0) = 0$. Мн-во решений этого уравнения называют {\bf Дискриминантной кривой}.
+\end{Def}
+\begin{Def}
+{\bf Огибающей семейства кривых} $\phi(x,y,C) = 0$ называется кривая $K$, в каждой своей точке касающаяся кривой семейства, отличной от кривой $K$ в любой окрестности этой точки.
+\end{Def}
+{\bf Схема нахождения особых решений ДУ:} 
+1) Пусть имеем ДУ: $F(x,y,y') = 0$. Найдем его общее решение $\phi(x,y,C) = 0$; 2) Найдем дискриминантную кривую $\psi(x,y,C) = 0$, решив сл. систему: $\{F(x_0, y_0, y_0') = 0; \frac{\partial F}{\partial y_0'}(x_0, y_0, y_0') = 0\}$; 3)Проверим, соприкасаются ли данные кривые, для того проверим, верны ли сл. тождества относительно $x$ : $\{\phi(x,y,C) = \psi(x,y,C); \phi'(x,y,C) = \psi'(x,y,C)\}$. Если да, то дискр. кривая явл. особым решением.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{20. Линейные уравнения. Линейная система нормального вида. Свойства решений линейной системы в вещественном и комплексном случае.}
+\begin{Def}
+Ур-е вида $\frac{dx}{dt} = a_1(t)x_1 + \ldots + a_n(t)x_n + f(t)$ называют {\bf линейным ДУ}.
+Систему вида: $\frac{dx_i}{dt}  = a_{i1}(t)x_1 + \ldots + a_{in}(t)x_n + f_i(t), i = \overline{1,n}$ - называют {\bf системой линейных ДУ нормального вида}.
+\end{Def}
+{\bf Свойства решений системы линейный ДУ:}
+1)Мн-во решений однородного вравнения образуют лин. пр-во;
+2)Если $Lu = 0, Lv = f$, то $L(u + v) = f$;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{21. Существование и единственность решений для линейной системы.}
+\begin{Th}
+Пусть век-функ. $\overline{f}(t)$ - и матрица ф-я $A(t)$ - непрерывны на отрезке $[a,b]$, тогда 1)Решение задачи коши от системы линейных ДУ существует на отрезке $[a,b]$; 2) Решение задчи единственно на данном интервале, т.е если есть две вект-функ-и, являющиеся решениями на интервале то они идентичны.
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{22. Структура решений линейных однородных систем уравнений. Детерминант Вронского для систем уравнений.}
+{\bf Структура решений:}
+\begin{Th}
+Пусть $y_1, \ldots, y_n$ - лин. незав. решения однородного уравнения. Тогда общее решение имеет вид: $y=C_1\cdot y_1 + \ldots + C_n \cdot y_n$;
+\end{Th}
+\begin{Def}
+{\bf Вронскианом} линейного уравнения называют сл. величину: $\mathcal{W} = 
+\begin{vmatrix}
+y_1,&  \ldots,& y_n,\\
+y_1',& \ldots,& y_n',\\
+\ldots& \ldots& \ldots\\
+y_1^{n-1},& \ldots,& y_n^{(n-1}
+\end{vmatrix}$. Если $y_1, \ldots, y_n$ - линейно зависимы - то вронскиан равен нулю.
+\end{Def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{23. Существование фундаментальной системы решений для однородной линейной системы.}
+\begin{Def}
+{\bf Фундаментальной системой решений} называют всякую систему, состоящую из n линейно независимых решений.
+\end{Def}
+\begin{Th}
+Для всякой однородной линейной системы ДУ существует фундаментальное решение.
+\begin{Proof}
+Пусть есть $t_0 \in (a;b)$ и любые из n лин. незав. векторов $\overline{b}^1, \ldots, \overline{b}^n$. Пусть $\overline{x}^1(t), \ldots, \overline{x}^n(t)$ - решения системы $\overline{x}' = A(t)x$ с начальными условиями $\overline{x}^j(t_0) = \overline{b}^j, j = \overline{1,n}$. Эти решения лин. незав., т.к их значения - лин. незав. векторы. (b) и это решения равно(по теор.) сл. тождеству $С_1\cdot \overline{x}^1(t) + \ldots + C_n \cdot \overline{x}^n(t) == 0$. Ч.т.д.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{24. Фундаментальная матрица, ее свойства. Переход к другой фундаментальной матрице.}
+\begin{Def}
+{\bf Фундаментальной матрицей} системы $\overline{x}' = A(t)\overline{x}$ называют матрицу $X(t)$, столбцы которой составляют фунд. систему решений.
+\end{Def}
+Св-ва: 1) Общее решение соотв. системы можно выразить через фунд. матрицу $\overline{x}(t) = X(t)\cdot \overline{C}$, где $\overline{C}$ - вектор констант;
+	 2) Фунд. матрица удовл. матричному уравнению: $X' = A(t)x$;
+\begin{Th}
+{\bf Переход к другой фунд. матрице:} Пусть $X(t)$ - ф.мат. $C$ - матрица констант, причем $det(C) \neq 0$. Тогда возможно построить другую фундаментальную матрицу: $Y(t) = X(t)\cdot C$;
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{25. Лемма о дифференцировании определителя. Формула Лиувилля-Остроградского}
+\begin{Th}
+Пусть $D = detA(t)$. Матрица $A(t)$ - размера $n \cdot n$. Тогда $D' = D_1 + \ldots + D_n$, где $D_i$ получается из $D$ заменой всех элементов $i$-й строки на их производные.
+\begin{Proof}
+$D = \sum (+-) b_{ij}\cdot \ldots \cdot b_{i_nj_n}$. Т.к $(b_1 \cdot b_2 \cdot \ldots \cdot b_n)' = b_1'\cdot b_2 \cdot \ldots \cdot b_n + b_1\cdot b_2' \cdot \ldots \cdot b_n + \ldots + b_1\cdot \ldots \cdot b_n'$, то формула теоремы верна.
+\end{Proof}
+\end{Th}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\end{multicols}
+\end{document}
+\end{verbatim}
+
+\rule{0.3\linewidth}{0.25pt}
+\scriptsize
+
+Copyright \copyright\ 2014 Winston Chang
+
+\href{http://wch.github.io/latexsheet/}{http://wch.github.io/latexsheet/}
+
+
+\end{multicols}
+\end{document}
